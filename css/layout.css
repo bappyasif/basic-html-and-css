@@ -1,0 +1,40 @@
+body {
+    background-color: #3767ed;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 18px;
+    margin: 0px;
+}
+
+header {
+    background-color: #695604;
+    padding-top: 44px;
+    padding-bottom: 49px;
+    text-align: center;
+    color: whitesmoke;
+    text-transform: uppercase;
+    margin-bottom: 99px;
+}
+
+.container {
+    width: 89%;
+    margin: 0 auto;
+}
+
+section {
+    float: left;
+    width: 74%;
+    margin-bottom: 92px;
+}
+
+aside {
+    float: right;
+    width: 26%;
+}
+
+footer {
+    clear: both;
+    padding: 49px 0;
+    text-align: center;
+    height: 20px;
+    background-color: #695604;
+}

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>about links and images</title>
+</head>
+
+<body style="background-color: darkgreen;">
+    <h1>homepage</h1>
+    <a href="https://www.theodinproject.com/about">click me</a>
+    <!-- It’s worth noting you can use anchor tags to link to any kind of resource on the internet, not just other HTML documents. You can link to videos, pdf files, images, and so on, but for the most part, you will be linking to other HTML documents. -->
+    <!-- 
+        Absolute Links
+        Links to pages on other websites on the internet are called absolute links.  
+        An absolute link will always contain the protocol and domain of the destination.
+
+        Relative Links
+        Links to other pages within our own website are called relative links. Relative links do not include the domain name, since it is another page on the same site, it assumes the domain name will be the same as the page we created the link on.
+        Relative links only include the file path to the other page, relative to the page you are creating the link on.
+    -->
+    <a href="./pages/layout-page.html">Layout</a>
+    <!-- Prepending ./ before the link will in most cases prevent such issues. By adding ./ you are specifying to your code that it should start looking for the file/directory relative to the current directory. -->
+    
+    <img src="https://www.theodinproject.com/mstile-310x310.png" alt="the odin project logo">
+    <img src="./images/dog-pic.jpg" alt="photo of a dog" />
+    <!-- The alt attribute is used to describe an image. It will be used in place of the image if it cannot be loaded. It is also used with screen readers to describe what the image is to visually impaired users. -->
+
+    <!-- 
+        JPG IMAGES: 
+        > JPG images are designed for handling large color palettes without exorbitantly increasing file size. 
+        >  JPGs don’t allow for transparent pixels
+    -->
+    <img src='images/mochi.jpg' width='75' alt='A mochi ball in a bubble'/>
+    <!-- 
+        GIF IMAGES: 
+        > GIFs are the go-to option for simple animations, but the trade off is that they’re somewhat limited in terms of color palette—never use them for photos
+        > Transparent pixels are a binary option for GIFs, meaning you can’t have semi-opaque pixels
+     -->
+     <img src='images/mochi.gif' width='75' alt='A dancing mochi ball'/>
+
+    <!-- 
+        PNG IMAGES:
+        > PNGs are great for anything that’s not a photo or animated
+        > png don’t have color palette limitations. This makes them an excellent fit for icons, technical diagrams, logos, etc.
+    -->
+    <img src='images/mochi.png' width='75' alt='A mochi ball'/>
+
+    <!-- 
+        SVG IMAGES:
+        > Unlike the pixel-based image formats above, SVG is a vector-based graphics format, meaning it can scale up or down to any dimension without loss of quality.
+        > This property makes SVG images a wonderful tool for responsive design. They’re good for pretty much all the same use cases as PNGs, and you should use them whenever possible
+    -->
+    <img src='images/mochi.svg' alt='A mochi ball with Bézier handles'/>
+
+    <!-- 
+        IMAGE DIMENSIONS:
+        > By default, the <img/> element uses the inherit dimensions of its image file
+        > Dimension values are specified in pixels, and you should never include a unit (e.g., width='75px' would be incorrect).
+     -->
+</body>
+
+</html>

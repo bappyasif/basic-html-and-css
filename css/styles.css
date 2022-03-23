@@ -1,0 +1,146 @@
+body {
+    background-color: darkgreen;
+    color: whitesmoke;
+    font-size: 22px;
+    line-height: 2;
+    font-weight: lighter;
+    text-align: center;
+    /* clear removes floating slectiofn from ealrier */
+    /* clear: both; */
+    /* margin-left: auto;
+    margin-right: auto; */
+}
+
+p {
+    color: goldenrod;
+    /* clear: right; */
+}
+
+h1 {
+    font-size: 74px;
+}
+
+ div {
+     width: 440px;
+     height: fit-content;
+     background-color: darkmagenta;
+ }
+
+ span {
+     background-color: maroon;
+ }
+
+ .top-section {
+    color: aqua;
+ }
+
+ .bottom-section {
+     color: blue;
+ }
+
+ #box {
+     background-color: aquamarine;
+     width: 299px;
+     margin: 110px;
+     border: 4px solid goldenrod;
+     border-left-color: yellow;
+     border-style: groove;
+     padding: 29px 20px 24px 31px; /* top right bottom left */
+     background-image: url('https://unsplash.it/350/200');
+     background-repeat: no-repeat;
+     background-size: cover;
+ }
+
+ .bolder {
+     font-weight: bolder;
+ }
+
+ .bold {
+     font-weight: bold;
+ }
+
+/* link order is important otherwise all fo them wont work as expected!! */
+
+ a:link {
+     color: firebrick;
+     text-decoration: wavy;
+ }
+
+ a:visited {
+     color: black;
+ }
+
+ a:hover {
+     color: coral;
+ }
+
+ a:active {
+    color: blue;
+}
+
+s:focus {
+    color: chartreuse;
+}
+
+ol {
+    list-style-type: upper-roman;
+}
+
+ul {
+    list-style-type: decimal-leading-zero;
+    list-style-image: url('https://unsplash.it/11/11');
+}
+
+ul li {
+    margin-bottom: 4px;
+    background-color: darkred;
+    list-style-position: outside;
+}
+
+ol li {
+    margin-bottom: 6px;
+    background-color: blueviolet;
+    list-style-position: inside;
+}
+
+img {
+    /* floats warp everyting expcept just text, any overlapping goes underneath wrappeing elem */
+    float: right;
+    margin-right: 6px;
+    /* clear removes floating slectiofn from ealrier */
+    /* clear: both; */
+}
+
+/* p::after {
+    clear: both;
+} */
+
+.boxes {
+    width: 92px;
+    height: 110px;
+    float: left;
+    /* margin-left: auto;
+    margin-right: auto; */
+}
+
+.box-01 {
+    background-color: red;
+}
+
+.box-02 {
+    background-color: blueviolet;
+    clear: both;
+}
+
+.box-03 {
+    background-color: blue;
+}
+
+.center-container {
+    background-color: whitesmoke;
+    width: 350px;
+    margin-left: auto;
+    margin-right: auto;
+    height: 200px;
+    color: aqua;
+}
