@@ -1,0 +1,47 @@
+body {
+    background-color: lightgoldenrodyellow;
+}
+
+h1 {
+    /* text-align: center; */
+}
+
+img {
+    width: 570px;
+    height: 470px;
+    background-size: cover;
+    border-radius: 20px;
+    float: right;
+}
+
+#pages-container {
+    font-family: system-ui;
+    background-color: lightgreen;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#pages-container a {
+    display: inline-block;
+    margin: 0 20px;
+    background-color: darkgoldenrod;
+    padding: 11px;
+    font-size: larger;
+    line-height: 2em;
+    text-decoration: none;
+}
+
+#pages-container a:hover {
+    background-color: darkorange;
+}
+
+ul, h2 {
+    /* clear: both; */
+}
+
+.ingredients {
+    list-style-type: disclosure-closed;
+    font-size: larger;
+    font-style: oblique;
+}
