@@ -1,3 +1,8 @@
+*{
+    font-size: large;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
 body {
     background-color: lightgoldenrodyellow;
 }
@@ -15,7 +20,7 @@ img {
 }
 
 #pages-container {
-    font-family: system-ui;
+    /* font-family: system-ui; */
     background-color: lightgreen;
     width: fit-content;
     margin-left: auto;
@@ -27,7 +32,7 @@ img {
     margin: 0 20px;
     background-color: darkgoldenrod;
     padding: 11px;
-    font-size: larger;
+    /* font-size: larger; */
     line-height: 2em;
     text-decoration: none;
 }

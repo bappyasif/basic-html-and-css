@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic Use Of CSS</title>
+    <style>
+        body {
+            background-color: darkgreen;
+        }
+
+        .subsection.header {
+            color: red;
+        }
+
+        .subsection#preview {
+            color: blue;
+            border: solid 1.1px currentColor;
+        }
+
+        /* rule 1 */
+        .subsection {
+            color: blue;
+        }
+
+        /* rule 2 */
+        .main .list {
+            color: red;
+        }
+
+        /* In the example above, both rules are using only class selectors, but rule 2 is more specific because it is using more class selectors, so the color: red; declaration would take precedence. */
+
+        /* rule 1 */
+        #subsection {
+            color: blue;
+        }
+
+        /* rule 2 */
+        .main .list {
+            color: red;
+        }
+
+        /* In the example above, despite rule 2 having more class selectors than ID selectors, rule 1 is more specific because ID beats class. In this case, the color: blue; declaration would take precedence. */
+
+        /* rule 1 */
+        #subsection .list {
+            background-color: yellow;
+            color: blue;
+        }
+
+        /* rule 2 */
+        #subsection .main .list {
+            color: red;
+        }
+
+        /* both rules are using ID and class selectors, so neither rule is using a more specific selector than the other. The cascade then checks the amounts of each selector type. Both rules only have one ID selector, but rule 2 has more class selectors, so rule 2 has a higher specificity! */
+
+        /* rule 1 */
+        .class.second-class {
+            font-size: 12px;
+        }
+
+        /* rule 2 */
+        .class .second-class {
+            font-size: 24px;
+        }
+
+        /* Here both rule 1 and rule 2 have the same specificity. Rule 1 uses a chaining selector (no space) and rule 2 uses a descendant combinator (the empty space). But both rules have two classes and the combinator symbol itself does not add to the specificity */
+
+        /* rule 1 */
+        * {
+            color: black;
+        }
+
+        /* rule 2 */
+        h1 {
+            color: orange;
+        }
+
+        /* rule 2 would have higher specificity and the orange value would take precedence for this element. Rule 2 uses a type selector, which has the lowest specificity value. But rule 1 uses the universal selector (*) which has no specificity value. */
+
+        #parent {
+            color: red;
+        }
+
+        .child {
+            color: blue
+        }
+
+        /* Despite the parent element having a higher specificity with an ID, the child element would have the color: blue style applied since that declaration directly targets it, while color: red from the parent is only inherited. */
+
+        .alert {
+            color: red;
+        }
+
+        .warning {
+            color: yellow;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <div class="subsection header">Latest Posts</div>
+        <p class="subsection preview">This is where a preview for a post might go.</p>
+        <p class="subsection" id="preview">This is where a preview for a post might go.</p>
+        <!-- It’s best to include both of these properties for <img> elements, even if you don’t plan on adjusting the values from the image file’s original ones. -->
+        <!-- When these values aren’t included, if an image takes longer to load than the rest of the page contents, the image won’t take up any space on the page at first, but will suddenly cause a drastic shift of the other page contents once it does load in -->
+        <!-- Explicitly stating a height and width prevents this from happening, as space will be “reserved” on the page and will just appear as a blank space until the image loads -->
+
+        <!-- 
+            The Cascade of CSS: The cascade is what determines which rules actually get applied to our HTML. There are different factors that the cascade uses to determine this, three of which we’ll go over
+
+            Specificity
+            > A CSS declaration that is more specific will take precedence over ones that are less specific
+            > Inline styles have the highest specificity compared to selectors
+            > Specificity will only be taken into account when an element has multiple, conflicting declarations targeting it, sort of like a tie-breaker
+            > An ID selector will always beat any number of class selectors, a class selector will always beat any number of type selectors, and a type selector will always beat any number of anything less specific than it
+            > when comparing selectors you may come across special symbols for the universal selector (*) as well as combinators (+, ~, >, and an empty space). These symbols do not add any specificity in and of themselves.
+         -->
+        <div class="class second-class">Chained Selector</div>
+        <div class="class">
+            <div class="second-class">Cobinator Selector</div>
+        </div>
+
+        <!-- 
+            Inheritance
+            > Inheritance refers to certain CSS properties that, when applied to an element, are inherited by that element’s descendants, even if we don’t explicitly write a rule for those descendants\
+            > Typography based properties (color, font-size, font-family, etc.) are usually inherited, while most other properties aren’t.
+            > The exception to this is when directly targeting an element, as this always beats inheritance
+        -->
+        <div id="parent">
+            <div class="child"></div>
+        </div>
+
+        <!-- 
+            Rule Order: The final factor, the end of the line, the tie-breaker of the tie-breaker:
+            > Really simply, actually. Whichever rule was last defined is the winner.
+        -->
+        <div class="alert warning">Rule Order</div>
+    </div>
+</body>
+
+</html>

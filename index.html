@@ -5,18 +5,98 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recipes Page</title>
-    <link rel="stylesheet" href="./css/recipes.css">
+    <title>CSS Cascading In Details</title>
+    <!-- <link href="https://fonts.googleapis.com/css?family=Gayathri&display=swap" rel="stylesheet"> -->
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Gayathri&display=swap');
+
+        * {
+            font-family: 'Gayathri', sans-serif;
+            /* @font-face {
+                font-family: 'Gayathri', sans-serif;
+                src: url('https://fonts.googleapis.com/css?family=Gayathri&display=swap');
+            } */
+        }
+
+        /* scenario */
+        div#a {
+            background-color: green;
+        }
+
+        #a {
+            background-color: yellow;
+        }
+
+        div[id=a] {
+            background-color: blue;
+        }
+        /* the first rule is more specific than the other two, and will therefore be applied. */
+    </style>
 </head>
 
 <body>
-    <h1 style="text-align: center;">Some Recipes</h1>
-    <div id="pages-container">
-        <a href="./recipes/lasagna.html">Lasagna</a>
-        <a href="./recipes/chicken-curry.html">Chicken Curry</a>
-        <a href="./recipes/spinach-dish.html">Spinach Dish</a>
-        <a href="./recipes/blueberry-pancakes.html">Blueberry Pancakes</a>
-    </div>
+    <!-- CSS Cascade is the way our browsers resolve competing CSS declarations. -->
+    <!-- further down the cascade a declaration falls, the less likely it will end up as the final style -->
+    <!-- 
+        Importance: There are four basic types of rules:
+        > transition => Rules that apply to an active transition take the utmost importance
+        > !important => When we add !important to the end of our declaration, it jumps to this level of the Cascade. Ideally, you reserve this level to override styles from third-party libraries.
+        > animation => Rules that apply to an active animation jump up a level in the Cascade
+        > normal => This level is where the bulk of rules live
+     -->
+
+    <!-- 
+         Origin: This tier of the Cascade looks at where the rule was defined:
+         > website => This is the only level that you have control over, as a web developer.
+         > user
+         > browser => Each browser has its own set of styles
+      -->
+
+    <!-- 
+          Specificity: Cascade looks at the Specificity of a rule:
+          > inline => Styles declared within a style HTML property are the most specific
+          > layer => Layers "win" by being defined later
+          > id => We can target elements based on their id, using the syntax #id
+          > class | pseudo class | attribute => we can target elements with their class, attribute (i.e. checked, href, etc), and pseudo selectors (e.g. :hover, :first-child, etc)
+          > type | pseudo element  => We can target elements based on their tag type, and also pseudo elements such as ::before, ::selection
+       -->
+
+    <!-- 
+           Position: 
+           > Rules that are defined later in linked stylesheets or <style> tags will win, given that everything else in the Cascade is the same.
+        -->
+    <div>yeah!!</div>
+
+    <!-- 
+            Specificity Hierarchy
+            Every CSS selector has its place in the specificity hierarchy.
+
+            There are four categories which define the specificity level of a selector:
+
+            Inline styles - Example: <h1 style="color: pink;">
+            IDs - Example: #navbar
+            Classes, pseudo-classes, attribute selectors - Example: .test, :hover, [href]
+            Elements and pseudo-elements - Example: h1, :before
+
+            How to Calculate Specificity?
+            Memorize how to calculate specificity!
+
+            Start at 0, add 100 for each ID value, add 10 for each class value (or pseudo-class or attribute selector), add 1 for each element selector or pseudo-element.
+
+            Note: Inline style gets a specificity value of 1000, and is always given the highest priority!
+
+            Note 2: There is one exception to this rule: if you use the !important rule, it will even override inline styles!
+
+            > Equal specificity: the latest rule wins - If the same rule is written twice into the external style sheet, then the latest rule wins
+
+            > ID selectors have a higher specificity than attribute selectors
+
+            > Contextual selectors are more specific than a single element selector: The embedded style sheet is closer to the element to be styled (internal style over external style for same element)
+
+            > A class selector beats any number of element selectors: a class selector such as .intro beats h1, p, div, etc:
+
+            > The universal selector (*) and inherited values have a specificity of 0: The universal selector (*) and inherited values are ignored!
+         -->
 </body>
 
 </html>
