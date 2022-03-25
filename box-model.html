@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Box Model</title>
+    <link rel="stylesheet" href="./css/box-model.css">
+    <style>
+        * {
+            border: 1.1px solid turquoise;
+            background-color: darkgreen;
+            font-size: 42px;
+            /* border-box helps boxes to stay true to their 'height and width and dont change in size due to styling and all' */
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- how to make sure elements are just the right size with margin, padding, and borders -->
+    <div class="container">
+        <h1>Box Model</h1>
+        <!-- 
+        > Basically, every single thing on a webpage is a rectangular box
+        > These boxes can have other boxes in them and can sit alongside one another.
+     -->
+     <div class="een-doos">Een</div>
+     <div class="twee-doos">Twee</div>
+    </div>
+
+    <!-- 
+        Block and inline boxes: broadly two types of boxes, namely block and inline boxes
+        > These characteristics refer to how the box behaves in terms of page flow and in relation to other boxes on the page
+        > Boxes also have an inner display type and an outer display type
+
+        If a box has an outer display type of block, it will behave in the following ways:
+            > box will break into a new line
+            > box will extend in the inline direction to fill the space available in its container
+            > width and height properties are respected
+            > Padding, margin and border will cause other elements to be pushed away from the box
+        Some HTML elements, such as <h1> and <p>, use block as their outer display type by default
+        
+        If a box has an outer display type of inline, then:
+            > box will not break onto a new line
+            > width and height properties will not apply
+            > vertical padding, margins, and borders will apply but will not cause other inline boxes to move away from the box
+            > horizontal padding, margins, and borders will apply and will cause other inline boxes to move away from the box
+        Some HTML elements, such as <a>, <span>, <em> and <strong> use inline as their outer display type by default.
+        
+        The type of box applied to an element is defined by display property values such as block and inline, and relates to the outer value of display
+
+        Inner and outer display types: 
+            > which dictates how elements inside that box are laid out in normal flow
+            > which means that they behave just like any other block and inline elements
+        
+        We can, however, change the inner display type by using display values like flex
+        If we set display: flex; on an element, the outer display type is block, but the inner display type is changed to flex
+        Block and inline layout is sometimes referred to as normal flow
+     -->
+</body>
+
+</html>

@@ -1,0 +1,18 @@
+.een-doos {
+    background-color: lightcoral;
+    border: 20px solid darkgoldenrod;
+    padding: 11px;
+    height: 101px;
+    width: 101px;
+    margin: 101px;
+    box-sizing: border-box;    
+}
+
+.twee-doos {
+    background-color: lightsalmon;
+    border: 20px solid darkviolet;
+    padding: 11px;
+    height: 101px;
+    width: 101px;
+    margin: 101px;
+}
