@@ -13,7 +13,114 @@
             background-color: darkgreen;
             font-size: 42px;
             /* border-box helps boxes to stay true to their 'height and width and dont change in size due to styling and all' */
-            box-sizing: border-box;
+            /* box-sizing: border-box; */
+        }
+
+        /* css playground - 01 */
+        p,
+        ul {
+            border: 2px solid rebeccapurple;
+            padding: .5em;
+        }
+
+        .block,
+        li {
+            border: 2px solid blue;
+            padding: .5em;
+        }
+
+        ul {
+            display: flex;
+            list-style: none;
+        }
+
+        .block {
+            display: block;
+        }
+
+        /* css playground - 02 */
+        .box {
+            border: 5px solid rebeccapurple;
+            background-color: lightgray;
+            padding: 40px;
+            margin: 40px;
+            width: 300px;
+            height: 150px;
+        }
+
+        .alternate {
+            /* box-sizing: border-box; */
+            box-sizing: content-box;
+            width: 390px;
+            height: 240px;
+        }
+
+        /* css playground - 03 */
+        .container {
+            border-top: 5px dotted green;
+            border-right: 1px solid black;
+            border-bottom: 20px double rgb(23, 45, 145);
+        }
+
+        .box2 {
+            border: 1px solid #333333;
+            border-top-style: dotted;
+            border-right-width: 20px;
+            border-bottom-color: hotpink;
+        }
+
+        /* css playground - 04 */
+        .box3 {
+            padding-top: 20px;
+            padding-right: 30px;
+            padding-bottom: 40px;
+            padding-left: 4em;
+        }
+
+        .container2 {
+            padding: 20px;
+        }
+
+        /* css playground - 05 */
+        span {
+            margin: 20px;
+            padding: 20px;
+            width: 80px;
+            height: 50px;
+            background-color: lightblue;
+            border: 2px solid blue;
+        }
+
+        /* css playground - 06 */
+        span {
+            /* display: inline-block; */
+        }
+
+        .links-list a {
+            background-color: rgb(179, 57, 81);
+            color: #fff;
+            text-decoration: none;
+            padding: 1em 2em;
+            display: inline-block
+        }
+
+        .links-list a:hover {
+            background-color: rgb(66, 28, 40);
+            color: #fff;
+        }
+
+        /* test skill - 02 */
+        .box4 {
+            border: dotted;
+            padding: 11px 0px 11px 20px
+        }
+
+        /* test skill - 03 */
+        .box5 span {
+            background-color: pink;
+            border: 5px solid black;
+            padding: 1em;
+            display: inline-block;
         }
     </style>
 </head>
@@ -26,8 +133,8 @@
         > Basically, every single thing on a webpage is a rectangular box
         > These boxes can have other boxes in them and can sit alongside one another.
      -->
-     <div class="een-doos">Een</div>
-     <div class="twee-doos">Twee</div>
+        <div class="een-doos">Een</div>
+        <div class="twee-doos">Twee</div>
     </div>
 
     <!-- 
@@ -59,6 +166,125 @@
         If we set display: flex; on an element, the outer display type is block, but the inner display type is changed to flex
         Block and inline layout is sometimes referred to as normal flow
      -->
+    <!-- html playground - 01 -->
+    <p>I am a paragraph. A short one.</p>
+    <ul>
+        <li>Item One</li>
+        <li>Item Two</li>
+        <li>Item Three</li>
+    </ul>
+    <p>I am another paragraph. Some of the <span class="block">words</span> have been wrapped in a <span>span
+            element</span>.</p>
+    <!-- key thing to remember for now is that changing the value of the display property can change whether the outer display type of a box is block or inline, which changes the way it displays alongside other elements in the layout -->
+
+    <!-- 
+        What is the CSS box model?
+        > The CSS box model as a whole applies to block boxes.
+        > Inline boxes use just some of the behavior defined in the box model
+        > The model defines how the different parts of a box — margin, border, padding, and content — work together to create a box that you can see on a page
+
+        Parts of a box:
+        > Content box: The area where your content is displayed, which can be sized using properties like width and height
+        > Padding box: The padding sits around the content as white space; its size can be controlled using padding and related properties
+        > Border box: The border box wraps the content and any padding. Its size and style can be controlled using border and related properties
+        > Margin box: The margin is the outermost layer, wrapping the content, padding, and border as whitespace between this box and other elements. Its size can be controlled using margin and related properties
+
+        The standard CSS box model:
+        > In the standard box model, if you give a box a width and a height attribute, this defines the width and height of the content box
+        > Any padding and border is then added to that width and height to get the total size taken up by the box
+
+        The alternative CSS box model:
+        > any width is the width of the visible box on the page, therefore the content area width is that width minus the width for the padding and border
+        > By default, browsers use the standard box model. If you want to turn on the alternative model for an element, you do so by setting box-sizing: border-box on it
+     -->
+    <div class="box">I use the standard box model.</div>
+    <div class="box alternate">I use the alternate box model.</div>
+    <!-- 
+        Margin collapsing:
+        >  If you have two elements whose margins touch, and both margins are positive, those margins will combine to become one margin, and its size will be equal to the largest individual margin
+        > If one margin is negative, its value will be subtracted from the total
+        > Where both are negative, the margins will collapse and the smallest (furthest from zero) value will be used
+
+        Borders:
+        > border is drawn between the margin and the padding of a box
+        > If you are using the standard box model, the size of the border is added to the width and height of the box
+        > If you are using the alternative box model then the size of the border makes the content box smaller as it takes up some of that available width and height       
+     -->
+    <div class="container">
+        <div class="box2">Change my borders.</div>
+    </div>
+    <!-- 
+        Padding:
+        > padding sits between the border and the content area
+        > Unlike margins, you cannot have negative amounts of padding, so the value must be 0 or a positive value
+        > Padding is typically used to push the content away from the border
+        > Any background applied to your element will display behind the padding
+     -->
+    <div class="container2">
+        <div class="box3">Change my padding.</div>
+    </div>
+
+    <!-- 
+        The box model and inline boxes:
+        > All of the above applies fully to block boxes
+        > Some of the properties can apply to inline boxes too, such as those created by a <span> element
+
+        In the example below, we have a <span> inside a paragraph and have applied a width, height, margin, border, and padding to it
+        You can see that the width and height are ignored
+        The vertical margin, padding, and border are respected but they do not change the relationship of other content to our inline box and so the padding and border overlaps other words in the paragraph
+        Horizontal padding, margins, and borders are respected and will cause other content to move away from the box
+     -->
+    <p>
+        I am a paragraph and this is a <span>span</span> inside that paragraph. A span is an inline element and so does
+        not respect width and height.
+    </p>
+
+    <!-- 
+        Using display: inline-block
+        > This is a special value of display, which provides a middle ground between inline and block
+        > This is useful for situations where you do not want an item to break onto a new line, but do want it to respect width and height and avoid the overlapping seen above
+        > width and height properties are respected
+        > padding, margin, and border will cause other elements to be pushed away from the box
+        > It does not, however, break onto a new line, and will only become larger than its content if you explicitly add width and height properties
+     -->
+    <p>
+        I am a paragraph and this is a <span>span</span> inside that paragraph. A span is an inline element and so does
+        not respect width and height.
+    </p>
+    <nav>
+        <ul class="links-list">
+            <li><a href="">Link one</a></li>
+            <li><a href="">Link two</a></li>
+            <li><a href="">Link three</a></li>
+        </ul>
+    </nav>
+
+    <!-- Skills Test -->
+    <!-- test 01: same as css playground - 01 -->
+    <!-- 
+        test 02:
+        add to the box:
+            > A 5px, black, dotted border.
+            > A top margin of 20px.
+            > A right margin of 1em.
+            > A bottom margin of 40px.
+            > A left margin of 2em.
+            > Padding on all sides of 1em.
+     -->
+    <div class="box4">I use the standard box model.</div>
+
+    <!-- 
+        test 03:
+        > In this example the inline element has a margin, padding and border however the lines above and below are overlapping it
+        > What can you add to your CSS to cause the size of the margin, padding, and border to be respected by the other lines, while still keeping the element inline?
+     -->
+    <div class="box5">
+        <p>Veggies es bonus vobis, <span>proinde vos postulo</span> essum magis kohlrabi welsh onion daikon amaranth
+            tatsoi tomatillo melon azuki bean garlic.</p>
+
+        <p>Gumbo beet greens corn soko endive gumbo gourd. Parsley shallot courgette tatsoi pea sprouts fava bean
+            collard greens dandelion okra wakame tomato. Dandelion cucumber earthnut pea peanut soko zucchini.</p>
+    </div>
 </body>
 
 </html>
