@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Margins</title>
+    <style>
+        .box {
+            margin: 0 3em 0 3em;
+        }
+
+        .container {
+            width: 980px;
+            margin: 0 auto;
+        }
+
+        /* 
+            two things are done to center this element horizontally within the available space:
+
+            > The element is given a specified width
+            > The left and right margins are set to auto
+        */
+
+        h2 {
+            margin: 0 0 20px 0;
+        }
+
+        p {
+            margin: 10px 0 0 0;
+        }
+
+        /* negative margins */
+
+        .module {
+            padding: 1rem;
+            background: white;
+        }
+
+        .module h2 {
+            background: #90a4ae;
+            margin: -1rem -1rem 1rem -1rem;
+            padding: 1rem;
+        }
+
+        .module :last-child {
+            margin-bottom: 0;
+        }
+
+        body {
+            background: #ddd;
+            margin: 1rem;
+            padding: 1rem;
+            max-width: 400px;
+            margin: 2rem auto;
+            font-family: "Open Sans", sans-serif;
+        }
+
+        p {
+            border: 1px solid black;
+            padding: 1rem;
+        }
+
+        p:first-child {
+            margin-bottom: -1rem;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>About Margins</h2>
+    <!-- The margin property defines the outermost portion of the box model, creating space around an element, outside of any defined borders -->
+    <!-- Margins are set using lengths, percentages, or the keyword auto and can have negative values -->
+
+    <!-- 
+        auto and centering:
+        > Each of the margin properties can also accept a value of auto
+        > A value of auto basically tells the browser to define the margin for you
+        > auto is handy for horizontal centering
+        > Without the specified width, the auto values would essentially have no effect
+        > It should also be pointed out that auto is useful only for horizontal centering, and so using auto for top and bottom margins will not center an element vertically
+     -->
+
+    <!-- 
+        Collapsing margins:
+        > Vertical margins on different elements that touch each other (thus have no content, padding, or borders separating them) will collapse, forming a single margin that is equal to the greater of the adjoining margins
+        > This does not happen on horizontal margins (left and right), only vertical (top and bottom)
+        > they prevent empty elements from adding extra, usually undesirable, vertical margin space
+        > they allow for a more consistent approach to declaring universal margins across page elements
+        > margin collapse also applies to nested elements
+      -->
+    <h2>Collapsing Margins</h2>
+    <p>Example text.</p>
+
+    <!-- 
+        Negative Margins:
+        > while a positive margin value pushes other elements away, a negative margin will either pull the element itself in that direction, or pull other elements toward it
+        > 
+     -->
+    <div class="module">
+        <h2>Header</h2>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio, dolore eligendi repellendus, delectus animi
+            rem
+            ipsum fuga corporis beatae dicta iure explicabo impedit suscipit quidem autem laudantium, quis tempore
+            tenetur?</p>
+    </div>
+
+    <!-- another negative margin example -->
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus pariatur debitis reprehenderit dolore nemo
+        voluptatibus, repellat perspiciatis sunt provident possimus a error quos voluptatum eos repellendus amet in
+        asperiores
+        enim.</p>
+    <p>Suscipit quasi, quaerat dicta voluptatum magni voluptatem voluptatibus consequuntur fugit iste? Eum, praesentium
+        neque voluptatem consectetur ab ratione veritatis fuga facilis incidunt quia quam laborum dolores nisi
+        consequuntur
+        quod tempore.</p>
+    <p>Dolor explicabo fuga consequuntur suscipit laudantium et id culpa vero adipisci voluptatem libero quia quam
+        minima
+        corrupti nemo officiis, dignissimos ex unde voluptatibus blanditiis molestias vitae! Fugit dolore libero
+        suscipit.</p>
+    <p>Excepturi itaque ea inventore sint architecto corrupti, corporis illo odio ut qui, sapiente voluptates. Vitae
+        repudiandae enim voluptate facilis rerum in consequatur, dicta doloremque maxime qui, veritatis quam alias
+        dolorem.
+    </p>
+    <p>Sed voluptate qui hic placeat voluptatum quia magnam debitis, officiis omnis, ipsum consequatur tempore ratione
+        laboriosam saepe ea numquam fuga quo doloribus natus velit dolorum! Magni perferendis dolorem sed quaerat.</p>
+
+</body>
+
+</html>
