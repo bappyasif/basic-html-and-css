@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Normal Flow Of HTML</title>
+
+    <style>
+        body {
+            width: 500px;
+            margin: 0 auto;
+        }
+
+        p {
+            background: rgba(255, 84, 104, 0.3);
+            border: 2px solid rgb(255, 84, 104);
+            padding: 10px;
+            margin: 10px;
+        }
+
+        span {
+            background: white;
+            border: 1px solid black;
+        }
+
+        /* about inline and inline-block */
+        span.box,
+        span.box2,
+        span.box3 {
+            display: inline;
+            /* the default for span */
+            width: 100px;
+            height: 160px;
+            padding: 18px;
+        }
+
+        span.box2 {
+            display: inline-block;
+        }
+
+        span.box3 {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Inline vs Inline-Block Display in CSS</h1>
+    <!-- 
+        > display: inline-block brought a new way to create side by side boxes that collapse and wrap properly depending on the available space in the containing element
+        > It makes layouts that were previously accomplished with floats easier to create. No need to clear floats anymore
+        > Compared to display: inline, the major difference is that inline-block allows to set a width and height on the element
+        > Also, with display: inline, top and bottom margins & paddings are not respected, and with display: inline-block they are
+        > the difference between display: inline-block and display: block is that, with display: block, a line break happens after the element, so a block element doesn’t sit next to other elements       
+     -->
+    <!-- 
+        display: inline 
+        > Notice here how the width and height are not respected, and how the padding top and bottom are present, but overlap over the lines above and under
+    -->
+     <span>Cheese and wine ricotta danish fontina. Brie cheesy grin paneer squirty cheese taleggio cheesecake <span
+            class="box">goat taleggio</span>
+        <span class="box">goat taleggio</span>. Bavarian bergkase emmental fromage cheesecake cheese slices cheesy grin
+        queso caerphilly</span>
+
+    <!-- 
+        display: inline-block
+        > Here the width, height and padding are respected, but the two copies of the element can still sit side by side
+     -->
+    <span>Cheese and wine ricotta danish fontina. Brie cheesy grin paneer squirty cheese taleggio cheesecake <span
+            class="box2">goat taleggio</span>
+        <span class="box2">goat taleggio</span>. Bavarian bergkase emmental fromage cheesecake cheese slices cheesy grin
+        queso caerphilly</span>
+    
+    <!-- 
+        display: block
+        > Here again everything is respected, but the elements don’t sit side by side
+     -->
+    <span>Cheese and wine ricotta danish fontina. Brie cheesy grin paneer squirty cheese taleggio cheesecake <span
+        class="box3">goat taleggio</span>
+    <span class="box3">goat taleggio</span>. Bavarian bergkase emmental fromage cheesecake cheese slices cheesy grin
+    queso caerphilly</span>
+
+    <h1>Normal Flow Of HTML</h1>
+    <!-- 
+        By default, a block level element's content fills the available inline space of the parent element containing it and grows along the block dimension to accommodate its content
+        The size of Inline elements is just the size of their content. You can't set width or height on inline elements — they just sit inside the content of block level elements
+        If you want to control the size of an inline element in this manner, you need to set it to behave like a block level element (e.g., with display: block; or display: inline-block;, which mixes characteristics from both.)
+        By default, block-level elements are laid out in the block flow direction, which is based on the parent's writing mode (initial: horizontal-tb)
+        Each element will appear on a new line below the last one, with each one separated by whatever margin that's been specified
+        Inline elements behave differently. They don't appear on new lines, they all sit on the same line along with any adjacent (or wrapped) text content as long as there is space for them to do so inside the width of the parent block level element. If there isn't space, then the overflowing content will move down to a new line
+        If two adjacent elements both have a margin set on them and the two margins touch, the larger of the two remains and the smaller one disappears. Recall that this is known as margin collapsing
+     -->
+    <h1>Basic document flow</h1>
+
+    <p>I am a basic block level element. My adjacent block level elements sit on new lines below me.</p>
+
+    <p>By default we span 100% of the width of our parent element, and we are as tall as our child content. Our total
+        width and height is our content + padding + border width/height.</p>
+
+    <p>We are separated by our margins. Because of margin collapsing, we are separated by the width of one of our
+        margins, not both.</p>
+
+    <p>inline elements <span>like this one</span> and <span>this one</span> sit on the same line along with adjacent
+        text nodes, if there is space on the same line. Overflowing inline elements will <span>wrap onto a new line if
+            possible (like this one containing text)</span>, or just go on to a new line if not, much like this image
+        will do: <img src="long.jpg"></p>
+
+    <!-- 
+        Block-level Elements
+        > A block-level element always starts on a new line, and the browsers automatically add some space (a margin) before and after the element
+        > A block-level element always takes up the full width available (stretches out to the left and right as far as it can)
+        > Two commonly used block elements are: <p> and <div>
+        
+        Inline Elements:
+        > An inline element does not start on a new line
+        > An inline element only takes up as much width as necessary
+
+        The <div> Element:
+        > The <div> element is often used as a container for other HTML elements
+        > The <div> element has no required attributes, but style, class and id are common
+        
+        The <span> Element:
+        > The <span> element is an inline container used to mark up a part of a text, or a part of a document
+        > The <span> element has no required attributes, but style, class and id are common
+        
+        > There are two display values: block and inline
+        > A block-level element always starts on a new line and takes up the full width available
+        > An inline element does not start on a new line and it only takes up as much width as necessary
+        > The <div> element is a block-level and is often used as a container for other HTML elements
+        > The <span> element is an inline container used to mark up a part of a text, or a part of a document
+     -->
+
+</body>
+
+</html>
