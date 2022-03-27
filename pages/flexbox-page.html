@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>It's All About Flexbox</title>
+    <style>
+        * {
+            background-color: darkgreen;
+        }
+
+        .flex-container {
+            display: flex;
+        }
+
+        /* this selector selects all divs inside of .flex-container */
+        .flex-container div {
+            background: peachpuff;
+            border: 4px solid brown;
+            height: 100px;
+            flex: 1;
+        }
+
+        .flex-container div {
+            flex: 1 1 0%;
+        }
+
+        /* only div.two is selected here */
+        .flex-container .two {
+            flex: 2 1 0%;
+        }
+
+        .flex-container .two {
+            flex-shrink: 0;
+        }
+
+        .flex-container02 {
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* this selector selects all divs inside of .flex-container */
+        .flex-container02 div {
+            background: peachpuff;
+            border: 4px solid brown;
+            height: 80px;
+            /* flex: 1 1 auto; */
+            /* flex: 1; */
+            flex-grow: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Just Flexbox!!</h1>
+    <!-- Flexbox is a way to arrange items into rows or columns, where those items will flex (i.e. grow or shrink) based on some simple rules that you can define -->
+    <div class="flex-container">
+        <div class="one"></div>
+        <div class="two"></div>
+        <div class="three"></div>
+        <div class="four"></div>
+    </div>
+    <!-- 
+        > A flex container is any element that has display: flex on it. A flex item is any element that lives directly inside of a flex container 
+        > you can also put display: flex on a flex item, and then use flexbox to arrange its children
+    -->
+
+    <!-- 
+        GROWING AND SHRINKING
+
+        Flex shorthand:
+        > The flex declaration is actually a shorthand for 3 properties that you can set on a flex item
+        > These properties affect how flex items size themselves within their container
+        > Shorthand properties are CSS properties that let you set the values of multiple other CSS properties simultaneously
+        > Using a shorthand property, you can write more concise (and often more readable) stylesheets, saving time and energy
+
+        In this case, flex is actually a shorthand for flex-grow, flex-shrink and flex-basis
+        The default value of the flex property is flex-grow: 0, flex-shrink: 1, flex-basis: 0%
+
+        flex-grow:
+        > flex-grow expects a single number as its value, and that number is used as the flex-item’s “growth factor”
+        > When we applied flex: 1 to every div inside our container, we were telling every div to grow the same amount
+        > If we instead add flex: 2 to just one of the divs, then that div would grow to 2x the size of the others
+
+        flex-shrink:
+        > flex-shrink is similar to flex-grow, but sets the “shrink factor” of a flex item
+        > flex-shrink only ends up being applied if the size of all flex items is larger than their parent container
+        > The default shrink factor is flex-shrink: 1, which means all items will shrink evenly
+        > If you do not want an item to shrink then you can specify flex-shrink: 0;
+        > You can also specify higher numbers to make certain items shrink at a higher rate than normal
+        
+        An important implication to notice here is that when you specify flex-grow or flex-shrink, flex items do not necessarily respect your given values for width
+        when their parent is big enough, they grow to fill it. Likewise, when the parent is too small, the default behavior is for them to shrink to fit
+
+        flex-basis:
+        > flex-basis simply sets the initial size of a flex item, so any sort of flex-growing or flex-shrinking starts from that baseline size
+        > The shorthand value defaults to flex-basis: 0%
+        > The reason we had to change it to auto in the flex-shrink example is that with the basis set to 0, those items would ignore the item’s width, and everything would shrink evenly
+        > Using auto as a flex-basis tells the item to check for a width declaration
+
+        There is a difference between the default value of flex-basis and the way the flex shorthand defines it if no flex-basis is given
+        The actual default value for flex-basis is auto, but when you specify flex: 1 on an element, it interprets that as flex: 1 1 0
+        If you want to only adjust an item’s flex-grow you can simply do so directly, without the shorthand, or you can be more verbose and use the full 3 value shorthand flex: 1 1 auto
+        You could also use the predefined value flex: auto, which is equivalent to flex: 1 1 auto
+
+        In practice…:
+        > In practice you will likely not be using complex values for flex-grow, flex-shrink or flex-basis
+        > Generally, you’re most likely to use declarations like flex: 1; to make divs grow evenly and flex-shrink: 0 to keep certain divs from shrinking
+     -->
+
+    <!-- 
+        AXES
+        > flexbox can work either horizontally or vertically, and the way some rules work changes a bit depending on which direction you are working with
+        > The default direction for a flex container is horizontal, or row, but you can change the direction to vertical, or column
+
+        No matter which direction you’re using, you need to think of your flex-containers as having 2 axes: the main axis and the cross axis
+        It is the direction of these axes that changes when the flex-direction is changed
+
+        One thing to note is that in this example, flex-direction: column would not work as expected if we used the shorthand flex: 1 instead of flex: 1 1 auto
+        The divs collapse, even though they clearly have a height defined there
+        The reason for this is that the flex shorthand expands flex-basis to 0, which means that all flex-growing and flex-shrinking would begin their calculations from 0
+        when we changed the flex-direction to column, flex-basis refers to height instead of width
+    -->
+    <div class="flex-container02">
+        <div class="one"></div>
+        <div class="two"></div>
+        <div class="three"></div>
+    </div>
+</body>
+
+</html>
