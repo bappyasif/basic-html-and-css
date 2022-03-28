@@ -50,6 +50,244 @@
             /* flex: 1; */
             flex-grow: 1;
         }
+
+        /* flex alignment */
+        .container {
+            height: 140px;
+            padding: 16px;
+            background: plum;
+            border: 4px solid indigo;
+            display: flex;
+            /* justify-content: space-between; */
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .item {
+            width: 60px;
+            height: 60px;
+            border: 4px solid darkslategray;
+            background: skyblue;
+            /* flex: 1; */
+            /* distribute free space equally among items */
+        }
+
+        /* basic concepts of flexbox */
+        .box,
+        .box-02,
+        .box-03,
+        .box-04,
+        .box-05,
+        .box-06,
+        .box-07,
+        .box-08,
+        .box-09,
+        .box-10,
+        .box-11 {
+            display: flex;
+        }
+
+        .box div,
+        .box-02 div,
+        .box-03 div,
+        .box-04 div,
+        .box-05 div,
+        .box-06 div,
+        .box-07 div,
+        .box-08 div,
+        .box-09 div,
+        .box-10 div,
+        .box-11 div,
+        .box-12 div {
+            border: solid skyblue;
+        }
+
+        .box-02 {
+            flex-direction: row-reverse;
+        }
+
+        .box-03 {
+            display: flex;
+            /* flex-wrap: wrap; */
+            flex-flow: row wrap;
+            /* flex shorthand */
+            width: 261px;
+        }
+
+        .box-03 div {
+            width: 110px;
+            height: 42px;
+            background-color: lightsalmon;
+        }
+
+        .box-04 .one {
+            flex: 2 auto;
+        }
+
+        .box-04 .two {
+            flex: 0 2 auto;
+        }
+
+        .box-04 .three {
+            flex: 2 0 auto;
+        }
+
+        .box-05 {
+            align-items: flex-end;
+            justify-content: space-evenly;
+        }
+
+        .box-06,
+        .box-07 {
+            align-items: flex-start;
+            height: 200px;
+            border: solid;
+        }
+
+        .box-06>*:first-child,
+        .box-07>*:first-child {
+            align-self: stretch;
+        }
+
+        .box-06 .selected,
+        .box-07 .selected {
+            align-self: center;
+        }
+
+        .box-07 {
+            flex-direction: column;
+        }
+
+        .box-08 {
+            /* display: flex; */
+            flex-wrap: wrap;
+            height: 400px;
+            align-content: space-between;
+            width: 171px;
+            border: solid;
+        }
+
+        .box-08 div,
+        .box-09 div {
+            flex: 1;
+        }
+
+        .box-09 {
+            flex-wrap: wrap;
+            flex-direction: column;
+            width: 500px;
+            height: 400px;
+            align-content: space-between;
+        }
+
+        .box-10 {
+            flex-direction: column;
+            justify-content: space-between;
+            height: 500px;
+        }
+
+        .box-09 div,
+        .box-10 div {
+            padding: 20px;
+            border: 2px solid rgb(96, 139, 168);
+            border-radius: 5px;
+            background-color: rgba(96, 139, 168, .2);
+            flex: 1 1 100px;
+        }
+
+        .box-11 {
+            direction: rtl;
+            justify-content: center;
+            flex: none;
+        }
+
+        .box-11 div,
+        .box-12 div,
+        .box-13 div {
+            padding: 20px;
+            border: 2px solid rgb(96, 139, 168);
+            border-radius: 5px;
+            background-color: rgba(96, 139, 168, .2);
+        }
+
+        .box-12 {
+            display: flex;
+        }
+
+        .push {
+            margin-left: auto;
+        }
+
+        .box-13 {
+            display: flex;
+            flex-wrap: wrap;
+            row-gap: 10px;
+            column-gap: 2em;
+            width: 400px;
+            border: 2px dotted rgb(96, 139, 168);
+        }
+
+        .box-13>* {
+            flex: 1;
+        }
+
+        /* flexbox uses */
+        nav {
+            width: 510px;
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: space-between;
+            list-style: none;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #000;
+            border: 2px solid rgb(96, 139, 168);
+            border-radius: 5px;
+            background-color: rgba(96, 139, 168, .2);
+            padding: 10px;
+            display: block;
+        }
+
+        .space-distributed ul {
+            display: flex;
+            color: red;
+        }
+
+        .space-distributed li {
+            flex: auto;
+        }
+
+        .split-navs ul {
+            display: flex;
+            margin: 0 -10px;
+        }
+
+        .split-navs li {
+            margin: 0 10px;
+        }
+
+        .split-navs .push-right {
+            margin-left: auto;
+        }
+
+        .box-center {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .box-center div {
+            width: 100px;
+            height: 100px;
+            border: 2px solid rgb(96, 139, 168);
+            border-radius: 5px;
+            background-color: rgba(96, 139, 168, .2);
+        }
     </style>
 </head>
 
@@ -127,6 +365,365 @@
         <div class="one"></div>
         <div class="two"></div>
         <div class="three"></div>
+    </div>
+
+    <!-- 
+        Alignment
+        making flex grow or shrink is not limited to what flex can do, it is also very useful for arranging items that have a specific size
+    -->
+    <div class="container">
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+    </div>
+    <!-- 
+        Adding flex: 1 to .item makes each of the items grow to fill the available space, but what if we wanted them to stay the same width, but distribute themselves differently inside the container?
+        Remove flex: 1 from .item and add justify-content: space-between to .container
+        justify-content aligns items across the main axis
+        To change the placement of items along the cross axis use align-items
+        Try getting the boxes to the center of the container by adding align-items: center to .container
+        Because justify-content and align-items are based on the main and cross axis of your container, their behavior changes when you change the flex-direction of a flex-container
+        when you change flex-direction to column, justify-content aligns vertically and align-items aligns horizontally
+     -->
+
+    <!-- 
+        GAP
+        another very useful feature of flex is the gap property
+        Setting gap on a flex container simply adds a specified space between flex items, very similar to adding a margin to the items themselves
+    -->
+
+    <!-- 
+        basic concepts of flexbox:
+        Flexible Box Module, usually referred to as flexbox, was designed as a one-dimensional layout model, and as a method that could offer space distribution between items in an interface and powerful alignment capabilities
+        When we describe flexbox as being one dimensional we are describing the fact that flexbox deals with layout in one dimension at a time — either as a row or as a column
+        This can be contrasted with the two-dimensional model of CSS Grid Layout, which controls columns and rows together
+
+        The two axes of flexbox
+        > When working with flexbox you need to think in terms of two axes — the main axis and the cross axis
+        > main axis is defined by the flex-direction property, and the cross axis runs perpendicular to it
+
+        The main axis:
+        > The main axis is defined by flex-direction, which has four possible values: row | column | row-reverse | column-reverse
+        > Should you choose row or row-reverse, your main axis will run along the row in the inline direction
+        > Choose column or column-reverse and your main axis will run from the top of the page to the bottom — in the block direction
+
+        The cross axis:
+        > The cross axis runs perpendicular to the main axis, therefore if your flex-direction (main axis) is set to row or row-reverse the cross axis runs down the columns
+        > If your main axis is column or column-reverse then the cross axis runs along the rows
+
+        Start and end lines:
+        > Modern layout methods encompass the range of writing modes and so we no longer assume that a line of text will start at the top left of a document and run towards the right hand side, with new lines appearing one under the other
+        > After a while, thinking about start and end rather than left and right becomes natural, and will be useful to you when dealing with other layout methods such as CSS Grid Layout which follow the same patterns
+
+        The flex container:
+        > An area of a document laid out using flexbox is called a flex container
+        > To create a flex container, we set the value of the area's container's display property to flex or inline-flex
+        >  As soon as we do this the direct children of that container become flex items
+        when creating a flex container all of the contained flex items will behave in the following way:
+            > Items display in a row (the flex-direction property's default is row)
+            > The items start from the start edge of the main axis (row / row - reverse)
+            > The items do not stretch on the main dimension, but can shrink
+            > The items will stretch to fill the size of the cross axis
+            > The flex-basis property is set to auto
+            > The flex-wrap property is set to nowrap
+        The result of this is that your items will all line up in a row, using the size of the content as their size in the main axis
+        > If there are more items than can fit in the container, they will not wrap but will instead overflow
+        > If some items are taller than others, all items will stretch along the cross axis to fill its full size
+     -->
+    <div class="box">
+        <div>One</div>
+        <div>Two</div>
+        <div>Three
+            <br>has
+            <br>extra
+            <br>text
+        </div>
+    </div>
+    <!-- 
+        Changing flex-direction:
+        > Adding the flex-direction property to the flex container allows us to change the direction in which our flex items display
+        > Setting flex-direction: row-reverse will keep the items displaying along the row, however the start and end lines are switched
+        > If we change flex-direction to column the main axis switches and our items now display in a column
+        > Set column-reverse and the start and end lines are again switched
+     -->
+    <div class="box-02">
+        <div>One</div>
+        <div>Two</div>
+        <div>Three
+            <br>has
+            <br>extra
+            <br>text
+        </div>
+    </div>
+    <!-- 
+        Multi-line flex containers with flex-wrap:
+        > While flexbox is a one dimensional model, it is possible to cause our flex items to wrap onto multiple lines
+        > In doing so, you should consider each line as a new flex container
+        > To cause wrapping behavior add the property flex-wrap with a value of wrap
+        > Now, should your items be too large to all display in one line, they will wrap onto another line
+        
+        The flex-flow shorthand:
+        > You can combine the two properties flex-direction and flex-wrap into the flex-flow shorthand
+        > The first value specified is flex-direction and the second value is flex-wrap
+     -->
+    <div class="box-03">
+        <div>One</div>
+        <div>Two</div>
+        <div>Three</div>
+    </div>
+    <!-- 
+        Properties applied to flex items:
+        > To have more control over flex items we can target them directly. We do this by way of three properties: flex-grow, flex-shrink, flex-basis
+        > Before we can make sense of these properties we need to consider the concept of available space
+        > What we are doing when we change the value of these flex properties is to change the way that available space is distributed amongst our items
+
+        The flex-basis property:
+        > flex-basis is what defines the size of that item in terms of the space it leaves as available space
+        > initial value of this property is auto — in this case the browser looks to see if the items have a size
+        > If the items don't have a size then the content's size is used as the flex-basis
+        > This is why when we just declare display: flex on the parent to create flex items, the items all move into a row and take only as much space as they need to display their contents
+
+        The flex-grow property:
+        > With the flex-grow property set to a positive integer, flex items can grow along the main axis from their flex-basis
+        > This will cause the item to stretch and take up any available space on that axis, or a proportion of the available space if other items are allowed to grow too
+        > If we gave all of our items a flex-grow value of 1 then the available space in the flex container would be equally shared between our items and they would stretch to fill the container on the main axis
+        > The flex-grow property can be used to distribute space in proportion
+        >  If we give our first item a flex-grow value of 2, and the other items a value of 1 each, 2 parts of the available space will be given to the first item (100px out of 200px in the case of the example above), 1 part each the other two (50px each out of the 200px total)
+
+        The flex-shrink property:
+        > Where the flex-grow property deals with adding space in the main axis, the flex-shrink property controls how it is taken away
+        > If we do not have enough space in the container to lay out our items, and flex-shrink is set to a positive integer, then the item can become smaller than the flex-basis
+        > As with flex-grow, different values can be assigned in order to cause one item to shrink faster than others — an item with a higher value set for flex-shrink will shrink faster than its siblings that have lower values
+        
+        Shorthand values for the flex properties:
+        > You will very rarely see the flex-grow, flex-shrink, and flex-basis properties used individually
+        > instead they are combined into the flex shorthand
+        > The flex shorthand allows you to set the three values in this order — flex-grow, flex-shrink, flex-basis
+
+        There are also some predefined shorthand values which cover most of the use cases: flex: initial | auto | none | <positive number>
+        > Setting flex: initial resets the item to the initial values of Flexbox, this is the same as flex: 0 1 auto
+            > In this case the value of flex-grow is 0, so items will not grow larger than their flex-basis size
+            > The value of flex-shrink is 1, so items can shrink if they need to rather than overflowing
+            > Items will either use any size set on the item in the main dimension, or they will get their size from the content size
+        > Using flex: auto is the same as using flex: 1 1 auto
+            > everything is as with flex:initial but in this case the items can grow and fill the container as well as shrink if required
+        > Using flex: none will create fully inflexible flex items
+            > It is as if you wrote flex: 0 0 auto
+            > The items cannot grow or shrink but will be laid out using flexbox with a flex-basis of auto
+     -->
+    <div class="box-04">
+        <div class="one">One</div>
+        <div class="two">Two</div>
+        <div class="three">Three</div>
+    </div>
+    <!-- 
+        Alignment, justification and distribution of free space between items:
+        > A key feature of flexbox is the ability to align and justify items on the main- and cross-axes, and to distribute space between flex items
+        > Note that these properties are to be set on the flex container, not on the items themselves
+
+        align-items:
+        > The align-items property will align the items on the cross axis
+        > The initial value for this property is stretch and this is why flex items stretch to the height of the flex container by default
+        > This might be dictated by the height of the tallest item in the container, or by a size set on the flex container itself
+        > You could instead set align-items to flex-start in order to make the items line up at the start of the flex container, flex-end to align them to the end, or center to align them in the center
+
+        justify-content:
+        > The justify-content property is used to align the items on the main axis, the direction in which flex-direction has set the flow
+        > The initial value is flex-start which will line the items up at the start edge of the container, but you could also set the value to flex-end to line them up at the end, or center to line them up in the centre
+        > 
+     -->
+    <div class="box-05">
+        <div>One</div>
+        <div>Two</div>
+        <div>Three
+            <br>has
+            <br>extra
+            <br>text
+        </div>
+    </div>
+
+    <!-- 
+          Aligning Items in a Flex Container
+          > To center our box we use the align-items property to align our item on the cross axis, which in this case is the block axis running vertically
+          > We use justify-content to align the item on the main axis, which in this case is the inline axis running horizontally
+
+          Properties that control alignment:
+            > justify-content — controls alignment of all items on the main axis
+            > align-items — controls alignment of all items on the cross axis
+            > align-self — controls alignment of an individual flex item on the cross axis
+            > align-content — described in the spec as for "packing flex lines"; controls space between flex lines on the cross axis
+            > gap, column-gap, and row-gap — used to create gaps or gutters between flex items
+        
+            The Cross Axis
+            > The align-items and align-self properties control alignment of our flex items on the cross axis, down the columns if flex-direction is row and along the row if flex-direction is column
+
+            Aligning one item with align-self
+            > The align-items property sets the align-self property on all of the flex items as a group
+            > This means you can explicitly declare the align-self property to target a single item
+            > The align-self property accepts all of the same values as align-items plus a value of auto, which will reset the value to that which is defined on the flex container
+       -->
+    <div class="box-06">
+        <div>One</div>
+        <div>Two</div>
+        <div class="selected">Three</div>
+        <div>Four</div>
+    </div>
+    <!-- 
+        Changing the main axis
+        > If we change our flex-direction to column, align-items and align-self will align the items to the left and right
+     -->
+    <div class="box-07">
+        <div>One</div>
+        <div>Two</div>
+        <div class="selected">Three</div>
+        <div>Four</div>
+    </div>
+
+    <!-- 
+        Aligning content on the cross axis — the align-content property
+        > If you have a wrapped multiple-line flex container then you might also want to use the align-content property to control the distribution of space between the rows
+        > For align-content to work you need more height in your flex container than is required to display the items
+        > It then works on all the items as a set, and dictates what happens with that free space, and the alignment of the entire set of items within it
+        > align property takes up these values: flex-start | flex-end | center | space-between | space-around | space-evenly | stretch
+     -->
+    <div class="box-08">
+        <div>One</div>
+        <div>Two</div>
+        <div>Three</div>
+        <div>Four</div>
+        <div>Five</div>
+        <div>Six</div>
+        <div>Seven</div>
+        <div>Eight</div>
+    </div>
+    <!-- 
+        > Once again we can switch our flex-direction to column in order to see how this property behaves when we are working by column
+        > As before, we need enough space in the cross axis to have some free space after displaying all of the items
+     -->
+    <div class="box-09">
+        <div>One</div>
+        <div>Two</div>
+        <div>Three</div>
+        <div>Four</div>
+        <div>Five</div>
+        <div>Six</div>
+        <div>Seven</div>
+        <div>Eight</div>
+    </div>
+
+    <!-- 
+        Aligning content on the main axis:
+        > With justify-content we control what happens with available space, should there be more space than is needed to display the items
+        > The justify-content property accepts the same values as align-content: flex-start | flex-end | center | space-between | space-around | space-evenly | stretch
+
+        If the main axis is in the block direction because flex-direction is set to column, then justify-content will distribute space between items in that dimension as long as there is space in the flex container to distribute        
+     -->
+    <div class="box-10">
+        <div>One</div>
+        <div>Two</div>
+        <div>Three</div>
+        <div>Four</div>
+    </div>
+
+    <!-- 
+        Alignment and Writing Modes
+        > Remember that with all of these alignment methods, the values of flex-start and flex-end are writing mode-aware
+        > by using direction property set to rtl to force a right-to-left flow
+     -->
+    <div class="box-11">
+        <div>One</div>
+        <div>Two</div>
+        <div>Three</div>
+        <div>Four</div>
+    </div>
+
+    <!-- 
+        Alignment and flex-direction
+        > The start line will also change if you change the flex-direction property — for example using row-reverse instead of row
+        > the rule to remember is that unless you do something to change it, flex items lay themselves out in the direction that words are laid out in the language of your document along the inline, row axis. 
+        > flex-start will be where the start of a sentence of text would begin
+        > You can switch them to display in the block direction for the language of your document by selecting flex-direction: column
+        > Then flex-start will then be where the top of your first paragraph of text would start
+        > If you change flex-direction to one of the reverse values, then they will lay themselves out from the end axis and in the reverse order to the way words are written in the language of your document
+        
+        Using auto margins for main axis alignment:
+        > We don't have a justify-items or justify-self property available to us on the main axis as our items are treated as a group on that axis
+        >  However it is possible to do some individual alignment in order to separate an item or a group of items from others by using auto margins along with flexbox
+     -->
+    <div class="box-12">
+        <div>One</div>
+        <div>Two</div>
+        <div class="push">Three</div>
+        <div class="push">Four</div>
+        <div>Five</div>
+    </div>
+
+    <!-- 
+        Creating gaps between items
+        > To create a gap between flex items, use the gap, column-gap, and row-gap properties
+        > The column-gap property creates gaps between items on the main axis
+        > The row-gap property creates gaps between flex lines, when you have flex-wrap set to wrap
+        > The gap property is a shorthand that sets both together
+     -->
+    <div class="box-13">
+        <div>One</div>
+        <div>Two</div>
+        <div>Three</div>
+        <div>Four</div>
+        <div>Five</div>
+        <div>Six</div>
+    </div>
+
+    <!-- 
+        Typical use cases of Flexbox
+        Navigation:
+            > A common pattern for navigation is to have a list of items displayed as a horizontal bar
+        Space distributed outside the items:
+            > To distribute the space between or around the items we use the alignment properties in flexbox, and the justify-content property
+     -->
+    <nav>
+        <ul>
+            <li><a href="#">Page 1</a></li>
+            <li><a href="#">Page 2</a></li>
+            <li><a href="#">Page 3 is longer</a></li>
+            <li><a href="#">Page 4</a></li>
+        </ul>
+    </nav>
+    <!-- 
+        Space distributed within the items
+        > A different pattern for navigation would be to distribute the available space within the items themselves, rather than create space between them
+        > In this case we would use the flex properties to allow items to grow and shrink in proportion to one another
+        > If you wanted to respect the size property of my navigation items but have the available space shared out equally among them, then you might use flex: auto, which is the shorthand for flex: 1 1 auto — all items grow and shrink from a flex-basis of auto
+        > This would mean that the longer item would have more space because it started from a larger size, even though the same amount of available space is assigned to it as the others
+     -->
+    <nav class="space-distributed">
+        <ul>
+            <li><a href="#">Page 1</a></li>
+            <li><a href="#">Page 2</a></li>
+            <li><a href="#">Page 3 is longer</a></li>
+            <li><a href="#">Page 4</a></li>
+        </ul>
+    </nav>
+    <!-- 
+        Split navigation
+        > Another way to align items on the main axis is to use auto margins
+        > This enables the design pattern of a navigation bar where one group of items are aligned left and another group aligned right
+     -->
+    <nav class="split-navs">
+        <ul>
+            <li><a href="#">Page 1</a></li>
+            <li><a href="#">Page 2</a></li>
+            <li><a href="#">Page 3 is longer</a></li>
+            <li class="push-right"><a href="#">Page 4</a></li>
+        </ul>
+    </nav>
+    <!-- 
+        Center item
+        > make a container into a flex container, and then use either align-items on the parent element or target the flex item itself with align-self
+     -->
+    <div class="box-center">
+        <div></div>
     </div>
 </body>
 
