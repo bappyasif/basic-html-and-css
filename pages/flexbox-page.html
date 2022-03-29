@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -287,6 +286,83 @@
             border: 2px solid rgb(96, 139, 168);
             border-radius: 5px;
             background-color: rgba(96, 139, 168, .2);
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            grid-gap: 10px;
+        }
+
+        .card {
+            display: flex;
+            flex-direction: column;
+            border: 2px solid rgb(96, 139, 168);
+            border-radius: 5px;
+        }
+
+        .card .content {
+            flex: 1 1 auto;
+            padding: 11px;
+        }
+
+        footer {
+            background-color: rgba(96, 139, 168, .2);
+            padding: 11px;
+        }
+
+        .media {
+            display: flex;
+            align-items: flex-start;
+            width: 500px;
+            border: 2px dotted rgb(96, 139, 168);
+        }
+
+        .media .content {
+            flex: 1;
+            padding: 10px;
+        }
+
+        .media .image {
+            margin: 0 10px 0 0;
+            flex: 1;
+        }
+
+        .media.flipped {
+            flex-direction: row-reverse;
+        }
+
+        .wrapper {
+            display: flex;
+            border: 1px solid rgb(96, 139, 168);
+        }
+
+        .wrapper input[type="text"] {
+            flex: 1 1 auto;
+            background-color: rgba(96, 139, 168, .5);
+            border-right: 1px solid rgb(96, 139, 168);
+        }
+
+        .example label {
+            margin: 0;
+            font-size: 1.2em;
+            font-weight: normal;
+            padding: 10px;
+        }
+
+        .wrapper label {
+            background-color: #666;
+            color: #fff;
+        }
+
+        .wrapper>* {
+            border: none;
+            line-height: 1;
+        }
+
+        .wrapper input[type="submit"] {
+            background-color: rgba(96, 139, 168, 1);
+            color: #fff;
         }
     </style>
 </head>
@@ -725,6 +801,62 @@
     <div class="box-center">
         <div></div>
     </div>
+
+    <!-- 
+        Card layout pushing footer down:
+        > if you have variable amounts of content, the card will stretch to the height of the grid area or flex container
+        > Any content inside uses regular block layout, meaning that on a card with less content the footer will rise up to the bottom of the content rather than stick to the bottom of the card
+        > Flexbox can solve this. We make the card a flex container, with flex-direction: column
+        > We then set the content area to flex: 1, As this is the only item that can grow, it takes up all available space in the flex container and pushes the footer to the bottom
+     -->
+    <div class="cards">
+        <div class="card">
+            <div class="content">
+                <p>This card doesn't have much content.</p>
+            </div>
+            <footer>Card footer</footer>
+        </div>
+        <div class="card">
+            <div class="content">
+                <p>This card has a lot more content which means that it defines the height of the container the cards
+                    are in. I've laid the cards out using grid layout, so the cards themselves will stretch to the same
+                    height.</p>
+            </div>
+            <footer>Card footer</footer>
+        </div>
+    </div>
+
+    <!-- 
+        Media objects:
+        > The media object is a common pattern in web design — this pattern has an image or other element to one side and text to the right
+        > We see this pattern everywhere, used for comments, and anywhere we need to display images and descriptions
+        > With flexbox we can allow the part of the media object containing the image to take its sizing information from the image, and then the body of the media object flexes to take up the remaining space
+     -->
+    <div class="media">
+        <div class="image"><img src="../images/MDN.svg" alt="MDN logo"></div>
+        <div class="content">This is the content of my media object. Items directly inside the flex container will be
+            aligned to flex-start.</div>
+    </div>
+
+    <!-- 
+        Flipping the media object
+        > To switch the display of the media object so that the image is on the right and the content is on the left we can use the flex-direction property set to row-reverse
+     -->
+    <div class="media flipped">
+        <div class="image"><img src="../images/MDN.svg" alt="MDN logo"></div>
+        <div class="content">This is the content of my media object. Items directly inside the flex container will be
+            aligned to flex-start.</div>
+    </div>
+
+    <!-- 
+        Form controls
+        > Flexbox is particularly useful when it comes to styling form controls
+        > Forms have lots of markup and lots of small elements that we typically want to align with each other
+     -->
+    <form class="example">
+        <div class="wrapper"><label for="text">Label</label><input type="text" id="text"><input type="submit"
+                value="Send"></div>
+    </form>
 </body>
 
 </html>
