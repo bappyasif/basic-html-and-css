@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Making sense of Flexbox</title>
+</head>
+<style>
+    /* flexbox properties for parentContainer */
+    /* 
+    display defines a flexbox container, inline or block depending on what value its given, it enables a flex context for all its direct children
+    and also, css column has no effect on flex container
+     */
+    .container {
+        display: flex;
+    }
+
+    /* 
+     flex direction establishes main axis, thus defining direction flex items are placed in flex container
+     flexbox is (aside from optional wrapping) a single-direction layout concept, either horizontally or vertically
+      */
+    .container {
+        flex-direction: row;
+    }
+
+    /* 
+    By default, flex items will all try to fit onto one line, You can change that and allow the items to wrap as needed with this property
+    nowrap (default): all flex items will be on one line
+    wrap: flex items will wrap onto multiple lines, from top to bottom
+    wrap-reverse: flex items will wrap onto multiple lines from bottom to top
+     */
+    .container {
+        flex-wrap: nowrap;
+        flex-wrap: wrap;
+        flex-wrap: wrap-reverse;
+    }
+
+    /* 
+    flex-flow is a shorthand for the flex-direction and flex-wrap properties, which together define the flex container’s main and cross axes, default value is 'row nowrap'
+     */
+    .container {
+        flex-flow: column wrap;
+    }
+
+    /* 
+    justify-content defines the alignment along the main axis
+    It helps distribute extra free space leftover when either all the flex items on a line are inflexible, or are flexible but have reached their maximum size
+    It also exerts some control over the alignment of items when they overflow the line
+    flex-start (default): items are packed toward the start of the flex-direction
+    flex-end: items are packed toward the end of the flex-direction
+    start: items are packed toward the start of the writing-mode direction
+    end: items are packed toward the end of the writing-mode direction
+    left: items are packed toward left edge of the container, unless that doesn’t make sense with the flex-direction, then it behaves like start
+    right: items are packed toward right edge of the container, unless that doesn’t make sense with the flex-direction, then it behaves like end
+    center: items are centered along the line
+    space-between: items are evenly distributed in the line; first item is on the start line, last item on the end line
+    space-around: items are evenly distributed in the line with equal space around them, Note that visually the spaces aren’t equal, since all the items have equal space on both sides
+    space-evenly: items are distributed so that the spacing between any two items (and the space to the edges) is equal
+    safe and unsafe modifier keywords can be used in conjunction with all the rest of these keywords
+    Safest values are flex-start, flex-end, and center as others are not fully included in most browsers
+     */
+    .container {
+        justify-content: flex-start;
+        justify-content: flex-end;
+        justify-content: center;
+        justify-content: space-between;
+        justify-content: space-around;
+        justify-content: start;
+        justify-content: end;
+        justify-content: left;
+        justify-content: right;
+    }
+
+    /* 
+    align-items defines the default behavior for how flex items are laid out along the cross axis on the current line
+    Think of it as the justify-content version for the cross-axis (perpendicular to the main-axis)\
+    stretch (default): stretch to fill the container (still respect min-width/max-width)
+    flex-start / start / self-start: items are placed at the start of the cross axis
+    flex-end / end / self-end: items are placed at the end of the cross axis
+    center: items are centered in the cross-axis
+    baseline: items are aligned such as their baselines align
+    The safe and unsafe modifier keywords can be used in conjunction with all the rest of these keywords
+     */
+    .container {
+        align-items: stretch + safe;
+        align-items: flex-start + unsafe;
+        align-items: center;
+        align-items: baseline;
+        align-items: first baseline;
+        align-items: last baseline;
+        align-items: start;
+        align-items: end;
+        align-items: self-start;
+        align-items: self-end;
+    }
+
+    /* 
+    align-content aligns a flex container’s lines within when there is extra space in the cross-axis, similar to how justify-content aligns individual items within the main-axis
+    This property only takes effect on multi-line flexible containers, where flex-wrap is set to either wrap or wrap-reverse)
+    normal (default): items are packed in their default position as if no value was set
+    flex-start / start: items packed to the start of the container
+    flex-end / end: items packed to the end of the container
+    center: items centered in the container
+    space-between: items evenly distributed; the first line is at the start of the container while the last one is at the end
+    space-around: items evenly distributed with equal space around each line
+    space-evenly: items are evenly distributed with equal space around them
+    stretch: lines stretch to take up the remaining space
+    The safe and unsafe modifier keywords can be used in conjunction with all the rest of these keywords
+     */
+    .container {
+        align-content: stretch + safe;
+        align-content: flex-start + unsafe;
+        align-content: center;
+        align-content: baseline;
+        align-content: first baseline;
+        align-content: last baseline;
+        align-content: start;
+        align-content: end;
+        align-content: self-start;
+        align-content: self-end;
+    }
+
+    /* 
+    gap property explicitly controls the space between flex items. It applies that spacing only between items not on the outer edges
+    behavior could be thought of as a minimum gutter, as if the gutter is bigger somehow (because of something like justify-content: space-between;) then the gap will only take effect if that space would end up smaller
+    It is not exclusively for flexbox, gap works in grid and multi-column layout as well
+     */
+    .container {
+        display: flex;
+        /* ...  */
+        gap: 10px;
+        gap: 10px 20px;
+        /* row-gap column gap */
+        row-gap: 10px;
+        column-gap: 20px;
+    }
+
+    /* Properties for the Children (flex items) */
+    /* 
+    order:
+    > By default, flex items are laid out in the source order
+    > However, the order property controls the order in which they appear in the flex container
+    > Items with the same order revert to source order
+    */
+    .item {
+        order: 5;
+        /* default is 0 */
+    }
+
+    /* 
+    flex-grow:
+    > This defines the ability for a flex item to grow if necessary
+    > It accepts a unitless value that serves as a proportion
+    > It dictates what amount of the available space inside the flex container the item should take up
+    > If all items have flex-grow set to 1, the remaining space in the container will be distributed equally to all children
+    > If one of the children has a value of 2, that child would take up twice as much of the space either one of the others (or it will try, at least)
+    > Negative numbers are invalid
+     */
+    .item {
+        flex-grow: 4;
+        /* default 0 */
+    }
+
+    /* 
+    flex-shrink:
+    > This defines the ability for a flex item to shrink if necessary
+    > Negative numbers are invalid
+     */
+    .item {
+        flex-shrink: 3;
+        /* default 1 */
+    }
+
+    /* 
+    flex-basis:
+    > This defines the default size of an element before the remaining space is distributed
+    > It can be a length (e.g. 20%, 5rem, etc.) or a keyword
+    > auto keyword means “look at my width or height property”
+    > content keyword means “size it based on the item’s content”
+    > If set to 0, the extra space around content isn’t factored in
+    > If set to auto, the extra space is distributed based on its flex-grow value
+     */
+    .item {
+        flex-basis: content;
+        /* default auto */
+    }
+
+    /* 
+    flex:
+    > This is the shorthand for flex-grow, flex-shrink and flex-basis combined
+    > second and third parameters (flex-shrink and flex-basis) are optional
+    > The default is 0 1 auto, but if you set it with a single number value
+    > It is recommended that you use this shorthand property rather than set the individual properties
+    > shorthand sets the other values intelligently
+     */
+    .item {
+        flex: none '| [ <'flex-grow'> <'flex-shrink'>? || <'flex-basis'> ]'
+    }
+
+    /* 
+    align-self:
+    > This allows the default alignment (or the one specified by align-items) to be overridden for individual flex items
+    > Note that float, clear and vertical-align have no effect on a flex item
+     */
+    .item {
+        align-self: auto '| flex-start | flex-end | center | baseline | stretch';
+    }
+
+    /* Some Examples */
+    /* Let’s start with a very very simple example, solving an almost daily problem: perfect centering. It couldn’t be any simpler if you use flexbox */
+    /* 
+    This relies on the fact a margin set to auto in a flex container absorb extra space 
+    So setting a margin of auto will make the item perfectly centered in both axes
+    */
+    .parent {
+        display: flex;
+        height: 300px;
+        /* Or whatever */
+    }
+
+    .child {
+        width: 100px;
+        /* Or whatever */
+        height: 100px;
+        /* Or whatever */
+        margin: auto;
+        /* skol */
+    }
+
+    /* 
+    Now let’s use some more properties. Consider a list of 6 items, all with fixed dimensions, but can be auto-sized
+    We want them to be evenly distributed on the horizontal axis so that when we resize the browser, everything scales nicely, and without media queries
+    
+     */
+    .flex-container {
+        /* We first create a flex layout context */
+        display: flex;
+
+        /* Then we define the flow direction 
+            and if we allow the items to wrap 
+        * Remember this is the same as:
+        * flex-direction: row;
+        * flex-wrap: wrap;
+        */
+        flex-flow: row wrap;
+
+        /* Then we define how is distributed the remaining space */
+        justify-content: space-around;
+    }
+
+    /* 
+    Let’s try something else. Imagine we have a right-aligned navigation element on the very top of our website, 
+    but we want it to be centered on medium-sized screens and single-columned on small devices
+     */
+    .navigation {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: flex-end;
+
+        list-style: none;
+        margin: 0;
+        background: deepskyblue;
+    }
+
+    .navigation a {
+        text-decoration: none;
+        display: block;
+        padding: 1em;
+        color: white;
+    }
+
+    .navigation a:hover {
+        background: #1565C0;
+    }
+
+    @media all and (max-width: 800px) {
+        .navigation {
+            justify-content: space-around;
+        }
+    }
+
+    @media all and (max-width: 600px) {
+        .navigation {
+            flex-flow: column wrap;
+            padding: 0;
+        }
+
+        .navigation a {
+            text-align: center;
+            padding: 10px;
+            border-top: 1px solid rgba(255, 255, 255, 0.3);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .navigation li:last-of-type a {
+            border-bottom: none;
+        }
+    }
+
+    /* 
+    Let’s try something even better by playing with flex items flexibility! 
+    What about a mobile-first 3-columns layout with full-width header and footer. And independent from source order
+     */
+    .wrapper {
+        display: flex;
+        flex-flow: row wrap;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    .wrapper>* {
+        padding: 10px;
+        flex: 1 100%;
+    }
+
+    .header {
+        background: tomato;
+    }
+
+    .footer {
+        background: lightgreen;
+    }
+
+    .main {
+        text-align: left;
+        background: deepskyblue;
+    }
+
+    .aside-1 {
+        background: gold;
+    }
+
+    .aside-2 {
+        background: hotpink;
+    }
+
+    @media all and (min-width: 600px) {
+        .aside {
+            flex: 1 0 0;
+            /* flex: 2 0 0; */
+        }
+    }
+
+    @media all and (min-width: 800px) {
+        .main {
+            flex: 2 0px;
+        }
+
+        .aside-1 {
+            order: 1;
+        }
+
+        .main {
+            order: 2;
+        }
+
+        .aside-2 {
+            order: 3;
+        }
+
+        .footer {
+            order: 4;
+        }
+    }
+
+    body {
+        padding: 2em;
+    }
+</style>
+
+<body style='background-color: darkgreen;'>
+    <h1>Making sense of Flexbox</h1>
+    <ul class="navigation">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Products</a></li>
+        <li><a href="#">Contact</a></li>
+    </ul>
+
+    <div class="wrapper">
+        <header class="header">Header</header>
+        <article class="main">
+            <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum
+                tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas
+                semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+        </article>
+        <aside class="aside aside-1">Aside 1</aside>
+        <aside class="aside aside-2">Aside 2</aside>
+        <footer class="footer">Footer</footer>
+    </div>
+</body>
+
+</html>
