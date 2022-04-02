@@ -5,14 +5,18 @@
 }
 
 body {
-    background-color: seagreen;
+    background-color: cadetblue;
     margin: 0;
+}
+
+.hero-contents-container {
+    padding: 24px 177px;
 }
 
 .hero-contents-container,
 .some-random-informations {
     background-color: #1F2937;
-    padding: 24px 74px;
+    /* padding: 24px 177px; */
 }
 
 .hero-contents-container .header-text, 
@@ -56,10 +60,14 @@ a:hover {
 .hero-description-area {
     display: flex;
     justify-content: space-between;
+    margin-bottom: 42px;
 }
 
 .hero-description-area .left {
-    max-width: 497px;
+    /* max-width: 497px; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .hero-description-area .left button,
@@ -72,16 +80,25 @@ a:hover {
     border-radius: 11px;
     border: white solid;
     height: fit-content;
-    margin: auto;
+    /* margin: auto; */
+}
+
+.hero-description-area .left button {
+    width: fit-content;
+}
+
+.hero-contents-container .hero-description-area img {
+    width: 753px;
 }
 
 .some-random-informations {
     background-color: transparent;
+    margin: 60px 171px;
 }
 
 .some-random-informations .heading-text {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 42px;
     font-size: 36px;
     font-weight: bold;
     color: #1f2937;
@@ -91,6 +108,7 @@ a:hover {
     display: flex;
     /* margin: 62px 0px auto 62px; */
     justify-content: space-between;
+    margin-bottom: 99px;
 }
 
 .some-random-informations .cards .card {
@@ -113,6 +131,7 @@ a:hover {
     justify-content: center;
     align-items: center;
     background-color: #e7e5eb;
+    padding: 78px;
 }
 
 .quotes-container blockquote {
@@ -133,7 +152,11 @@ a:hover {
     background-color: #3882f6;
     border-radius: 11px;
     width: fit-content;
-    margin: auto;
+    margin: 42px auto;
+}
+
+.call-to-action button {
+    margin: auto 38px;
 }
 
 .call-to-action .left {
