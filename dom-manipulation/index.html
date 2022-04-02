@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM Manipulation</title>
+</head>
+
+<body>
+    <h1>DOM Manipulation!!</h1>
+    <button onclick="alert('Hello World')">Click Me</button>
+    <button id="btn">Click Me</button>
+    <button id="btn2">Click Me Too</button>
+
+    <div id="container">
+        <button id="1">Click Me</button>
+        <button id="2">Click Me</button>
+        <button id="3">Click Me</button>
+    </div>
+
+    <script>
+        let pTag = document.createElement('p');
+        let h3Tag = document.createElement('h3');
+        let divTag = document.createElement('div');
+        divTag.setAttribute('style', 'border: solid black; background-color: pink')
+
+        let h1Tag = document.createElement('h1');
+        h1Tag.textContent = 'im in a div';
+        let p2Tag = document.createElement('p')
+        p2Tag.textContent = 'ME TOO!!'
+
+        divTag.append(h1Tag, p2Tag)
+        document.body.append(divTag)
+
+        // events
+        const btn = document.querySelector('#btn');
+        btn.onclick = () => alert("Hello World");
+
+        // more flexible
+        const btn2 = document.querySelector('#btn2');
+        btn2.addEventListener('click', () => {
+            alert("Hello World");
+        });
+
+        // alternatively using named function
+        function alertFunction() {
+            alert("YAY! YOU DID IT!");
+        }
+        btn2.onclick = alertFunction;
+        btn2.addEventListener('click', alertFunction);
+        // Using named functions can clean up your code considerably, and is a really good idea if the function is something that you are going to want to do in multiple places
+
+        btn.addEventListener('click', function (e) {
+            console.log(e, e.target);
+            e.target.style.background = 'blue';
+            e.stopPropagation(); // stop bubbling up action
+        });
+        // e in that function is an object that references the event itself
+
+        // Attaching listeners to groups of nodes
+        // buttons is a node list. It looks and acts much like an array.
+        const buttons = document.querySelectorAll('button');
+        // we use the .forEach method to iterate through each button
+        buttons.forEach((button) => {
+            // and for each one we add a 'click' listener
+            button.addEventListener('click', () => {
+                alert(button.id);
+            }, {
+                // default value is false
+                capture: true, // flows top to bottom, and with e.stopPropagation, it will stop at first node
+
+                // unbind / once: event listens for just once and then remove event from node
+                once: true
+            });
+        });
+    </script>
+</body>
+
+</html>
