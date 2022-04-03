@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EloquentJS - DOM</title>
+</head>
+
+<body>
+    <h1>EloquentJS - DOM</h1>
+
+    <p>The <img src="img/cat.png" alt="Cat"> in the
+        <img src="img/hat.png" alt="Hat">.
+    </p>
+
+    <p><button onclick="replaceImages()">Replace</button></p>
+    <script>
+        // The loop that goes over the images starts at the end of the list. This is necessary because the node list returned by a method like getElementsByTagName (or a property like childNodes) is live. That is, it is updated as the document changes. If we started from the front, removing the first image would cause the list to lose its first element so that the second time the loop repeats, where i is 1, it would stop because the length of the collection is now also 1
+        function replaceImages() {
+            let images = document.body.getElementsByTagName("img");
+            for (let i = images.length - 1; i >= 0; i--) {
+                let image = images[i];
+                if (image.alt) {
+                    let text = document.createTextNode(image.alt);
+                    image.parentNode.replaceChild(text, image);
+                }
+            }
+        }
+    </script>
+
+    <blockquote id="quote">
+        No book can ever be finished. While working on it we learn
+        just enough to find it immature the moment we turn away
+        from it.
+    </blockquote>
+
+    <script>
+        // following example defines a utility elt, which creates an element node and treats the rest of its arguments as children to that node. This function is then used to add an attribution to a quote.
+        function elt(type, ...children) {
+            let node = document.createElement(type);
+            for (let child of children) {
+                if (typeof child != "string") node.appendChild(child);
+                else node.appendChild(document.createTextNode(child));
+            }
+            return node;
+        }
+
+        document.getElementById("quote").appendChild(
+            elt("footer", "—",
+                elt("strong", "Karl Popper"),
+                ", preface to the second edition of ",
+                elt("em", "The Open Society and Its Enemies"),
+                ", 1950"));
+    </script>
+
+    <!-- HTML allows you to set any attribute you want on nodes. This can be useful because it allows you to store extra information in a document. If you make up your own attribute names, though, such attributes will not be present as properties on the element’s node. Instead, you have to use the getAttribute and setAttribute methods to work with them -->
+    <!-- It is recommended to prefix the names of such made-up attributes with data- to ensure they do not conflict with any other attributes -->
+    <p data-classified="secret">The launch code is 00000000.</p>
+    <p data-classified="unclassified">I have two feet.</p>
+
+    <script>
+        let paras = document.body.getElementsByTagName("p");
+        for (let para of Array.from(paras)) {
+            if (para.getAttribute("data-classified") == "secret") {
+                para.remove();
+            }
+        }
+    </script>
+
+    <!-- offsetWidth and offsetHeight properties give you the space the element takes up in pixels -->
+    <!-- clientWidth and clientHeight give you the size of the space inside the element, ignoring border width -->
+    <p style="border: 3px solid red">
+        I'm boxed in
+    </p>
+
+    <script>
+        let para = document.body.getElementsByTagName("p")[0];
+        console.log("clientHeight:", para.clientHeight);
+        console.log("offsetHeight:", para.offsetHeight);
+    </script>
+
+    <!-- A program that repeatedly alternates between reading DOM layout information and changing the DOM forces a lot of layout computations to happen and will consequently run very slowly -->
+    <!-- following code is an example of this. It contains two different programs that build up a line of X characters 2,000 pixels wide and measures the time each one takes -->
+    <p><span id="one"></span></p>
+    <p><span id="two"></span></p>
+
+    <script>
+        function time(name, action) {
+            let start = Date.now(); // Current time in milliseconds
+            action();
+            console.log(name, "took", Date.now() - start, "ms");
+        }
+
+        time("naive", () => {
+            let target = document.getElementById("one");
+            while (target.offsetWidth < 2000) {
+                target.appendChild(document.createTextNode("X"));
+            }
+        });
+        // → naive took 32 ms
+
+        time("clever", function () {
+            let target = document.getElementById("two");
+            target.appendChild(document.createTextNode("XXXXX"));
+            let total = Math.ceil(2000 / (target.offsetWidth / 5));
+            target.firstChild.nodeValue = "X".repeat(total);
+        });
+        // → clever took 1 ms
+    </script>
+
+    <!-- JavaScript code can directly manipulate the style of an element through the element’s style property -->
+    <p><a href=".">Normal link</a></p>
+    <p><a href="." style="color: green">Green link</a></p>
+    <p id="para" style="color: purple">
+        Nice text
+    </p>
+
+    <script>
+        let para1 = document.getElementById("para");
+        console.log(para1.style.color);
+        para1.style.color = "magenta";
+    </script>
+
+    <!-- We can use positioning to create an animation. The following document displays a picture of a cat that moves around in an ellipse -->
+    <p style="text-align: center">
+        <!-- <img src="https://thecatapi.com/api/images/get?format=src&type=gif" style="position: relative"> -->
+        <img src="https://thecatapi.com/api/images/get?format=src" style="position: relative" width="200" height="200">
+    </p>
+    <script>
+        let cat = document.querySelector("img");
+        let angle = Math.PI / 2;
+        function animate(time, lastTime) {
+            if (lastTime != null) {
+                angle += (time - lastTime) * 0.001;
+            }
+            cat.style.top = (Math.sin(angle) * 20) + "px";
+            cat.style.left = (Math.cos(angle) * 200) + "px";
+            requestAnimationFrame(newTime => animate(newTime, time));
+        }
+        requestAnimationFrame(animate);
+    </script>
+
+    <!-- exercises -->
+    <!-- <table>
+        <tr>
+            <th>name</th>
+            <th>height</th>
+            <th>place</th>
+        </tr>
+        <tr>
+            <td>kilimanjaro</td>
+            <td>5895</td>
+            <td>Tanzania</td>
+        </tr>
+    </table> -->
+    <h1>Mountains</h1>
+
+    <div id="mountains"></div>
+
+    <script>
+        const MOUNTAINS = [
+            { name: "Kilimanjaro", height: 5895, place: "Tanzania" },
+            { name: "Everest", height: 8848, place: "Nepal" },
+            { name: "Mount Fuji", height: 3776, place: "Japan" },
+            { name: "Vaalserberg", height: 323, place: "Netherlands" },
+            { name: "Denali", height: 6168, place: "United States" },
+            { name: "Popocatepetl", height: 5465, place: "Mexico" },
+            { name: "Mont Blanc", height: 4808, place: "Italy/France" }
+        ];
+
+        let table = document.createElement('table')
+        let tr = document.createElement('tr')
+        tr.style.display = 'block';
+
+        for (let i = 0; i < 3; i++) {
+            let th = document.createElement('th')
+            th.textContent = i == 0 ? 'name' : i == 1 ? 'height' : 'place'
+            th.style.width = '121.2px';
+            th.style.textAlign = 'right';
+            tr.append(th)
+            console.log(tr)
+        }
+
+        let assignDataInRow = (value) => {
+            let td = document.createElement('td')
+            td.textContent = value;
+            // td.setAttribute('style', 'color: "red"; text-align: "right"')
+            td.style.color = 'red';
+            td.style.textAlign = 'right';
+            td.style.width = '121.2px';
+            return td
+        }
+
+        // table data
+        let trTD = document.createElement('tr')
+        trTD.style.display = 'block';
+        MOUNTAINS.forEach(elem => {
+            let tr01 = document.createElement('tr')
+            let name = assignDataInRow(elem.name)
+            let height = assignDataInRow(elem.height)
+            let place = assignDataInRow(elem.place)
+            // trTD.append(name, height, place)
+            tr01.append(name, height, place)
+            tr01.style.display = 'flex';
+            tr01.style.justifyContent = 'space-between';
+            trTD.append(tr01)
+            // tr.append(tr01)
+        })
+
+        let tableContainer = document.querySelector('#mountains');
+        table.append(tr, trTD)
+        // table.append(tr)
+        // table.append(trTD)
+        tableContainer.append(table)
+    </script>
+
+    <!-- elements by tag name -->
+    <h1>Heading with a <span>span</span> element.</h1>
+    <p>A paragraph with <span>one</span>, <span>two</span>
+        spans.</p>
+
+    <script>
+        // function byTagName(node, tagName) {
+        //     // Your code here.
+        //     console.log(node, tagName, node.querySelectorAll(`${tagName}`))
+        //     return node.querySelectorAll(tagName)
+        // }
+
+        function byTagName(node, tagName) {
+            // Your code here.
+            console.log(node, tagName, node.getElementsByTagName(`${tagName}`))
+            return node.getElementsByTagName(tagName)
+        }
+
+        console.log(byTagName(document.body, "h1").length);
+        // → 1
+        console.log(byTagName(document.body, "span").length);
+        // → 3
+        let para01 = document.querySelector("p");
+        console.log(byTagName(para01, "span").length);
+  // → 2
+    </script>
+</body>
+
+</html>
