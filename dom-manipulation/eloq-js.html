@@ -242,6 +242,344 @@
         console.log(byTagName(para01, "span").length);
   // → 2
     </script>
+
+    <!-- Events -->
+    <button id="button">Click me any way you want</button>
+    <script>
+        let button = document.querySelector("#button");
+        button.addEventListener("mousedown", event => {
+            // console.log('inside handler')
+            if (event.button == 0) {
+                console.log("Left button");
+            } else if (event.button == 1) {
+                console.log("Middle button");
+            } else if (event.button == 2) {
+                console.log("Right button");
+            }
+        });
+    </script>
+    <!-- The event is said to propagate outward, from the node where it happened to that node’s parent node and on to the root of the document -->
+    <!-- At any point, an event handler can call the stopPropagation method on the event object to prevent handlers further up from receiving the event. This can be useful when, for example, you have a button inside another clickable element and you don’t want clicks on the button to activate the outer element’s click behavior -->
+    <p id="para-02">A paragraph with a <button id="btn-02">button</button>.</p>
+    <script>
+        let para02 = document.querySelector("#para-02");
+        let button02 = document.querySelector("#btn-02");
+        para02.addEventListener("mousedown", () => {
+            console.log("Handler for paragraph.");
+        });
+        button02.addEventListener("mousedown", event => {
+            console.log("Handler for button.");
+            if (event.button == 2) event.stopPropagation();
+        });
+    </script>
+    <!-- Most event objects have a target property that refers to the node where they originated. -->
+    <button>A</button>
+    <button>B</button>
+    <button>C</button>
+    <script>
+        document.body.addEventListener("click", event => {
+            if (event.target.nodeName == "BUTTON") {
+                console.log("Clicked", event.target.textContent);
+            }
+        });
+    </script>
+    <!--  If the handler doesn’t want this normal behavior to happen, typically because it has already taken care of handling the event, it can call the preventDefault method on the event object -->
+    <a id="link" href="https://developer.mozilla.org/">MDN</a>
+    <script>
+        let link = document.querySelector("#link");
+        link.addEventListener("click", event => {
+            console.log("Nope.");
+            event.preventDefault();
+        });
+    </script>
+    <!-- When a key on the keyboard is pressed, your browser fires a "keydown" event. When it is released, you get a "keyup" event -->
+    <p>This page turns violet when you hold the V key.</p>
+    <script>
+        window.addEventListener("keydown", event => {
+            if (event.key == "v") {
+                document.body.style.background = "violet";
+            }
+        });
+        window.addEventListener("keyup", event => {
+            if (event.key == "v") {
+                document.body.style.background = "";
+            }
+        });
+    </script>
+    <!-- Despite its name, "keydown" fires not only when the key is physically pushed down -->
+    <!-- When a key is pressed and held, the event fires again every time the key repeats -->
+    <!-- The DOM node where a key event originates depends on the element that has focus when the key is pressed. Most nodes cannot have focus unless you give them a tabindex attribute, but things like links, buttons, and form fields can -->
+    <!-- To notice when something was typed, elements that you can type into, such as the <input> and <textarea> tags, fire "input" events whenever the user changes their content -->
+    <p>Press Control-Space to continue.</p>
+    <script>
+        window.addEventListener("keydown", event => {
+            if (event.key == " " && event.ctrlKey) {
+                console.log("Continuing!");
+            }
+        });
+    </script>
+    <!-- Pressing a mouse button causes a number of events to fire. The "mousedown" and "mouseup" events are similar to "keydown" and "keyup" and fire when the button is pressed and released -->
+    <!-- if I press down the mouse button on one paragraph and then move the pointer to another paragraph and release the button, the "click" event will happen on the element that contains both those paragraphs -->
+    <style>
+        body {
+            height: 200px;
+            background: beige;
+        }
+
+        .dot {
+            height: 8px;
+            width: 8px;
+            border-radius: 4px;
+            /* rounds corners */
+            background: blue;
+            position: absolute;
+        }
+    </style>
+    <script>
+        window.addEventListener("click", event => {
+            let dot = document.createElement("div");
+            dot.className = "dot";
+            dot.style.left = (event.pageX - 4) + "px";
+            dot.style.top = (event.pageY - 4) + "px";
+            document.body.appendChild(dot);
+        });
+    </script>
+    <!-- Every time the mouse pointer moves, a "mousemove" event is fired. This event can be used to track the position of the mouse. A common situation in which this is useful is when implementing some form of mouse-dragging functionality -->
+    <p>Drag the bar to change its width:</p>
+    <div id="div" style="background: orange; width: 60px; height: 20px">
+    </div>
+    <script>
+        let lastX; // Tracks the last observed mouse X position
+        let bar = document.querySelector("#div");
+        bar.addEventListener("mousedown", event => {
+            if (event.button == 0) {
+                lastX = event.clientX;
+                window.addEventListener("mousemove", moved);
+                event.preventDefault(); // Prevent selection
+            }
+        });
+
+        function moved(event) {
+            if (event.buttons == 0) {
+                window.removeEventListener("mousemove", moved);
+            } else {
+                let dist = event.clientX - lastX;
+                let newWidth = Math.max(10, bar.offsetWidth + dist);
+                bar.style.width = newWidth + "px";
+                lastX = event.clientX;
+            }
+        }
+    </script>
+    <!-- There are specific event types fired by touch interaction. When a finger starts touching the screen, you get a "touchstart" event. When it is moved while touching, "touchmove" events fire. Finally, when it stops touching the screen, you’ll see a "touchend" event -->
+
+    <!-- Whenever an element is scrolled, a "scroll" event is fired on it. -->
+    <!-- This has various uses, such as knowing what the user is currently looking at (for disabling off-screen animations or sending spy reports to your evil headquarters) or showing some indication of progress (by highlighting part of a table of contents or showing a page number) -->
+    <style>
+        #progress {
+            border-bottom: 2px solid blue;
+            width: 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+    </style>
+    <div id="progress"></div>
+    <script>
+        // Create some content
+        document.body.appendChild(document.createTextNode(
+            "supercalifragilisticexpialidocious ".repeat(11)));
+
+        let bar02 = document.querySelector("#progress");
+        window.addEventListener("scroll", () => {
+            let max = document.body.scrollHeight - innerHeight;
+            bar02.style.width = `${(pageYOffset / max) * 100}%`;
+        });
+    </script>
+    <!-- Calling preventDefault on a scroll event does not prevent the scrolling from happening. In fact, the event handler is called only after the scrolling takes place -->
+
+    <!-- When an element gains focus, the browser fires a "focus" event on it. When it loses focus, the element gets a "blur" event -->
+    <!-- Unlike the events discussed earlier, these two events do not propagate. A handler on a parent element is not notified when a child element gains or loses focus -->
+    <p>Name: <input class="inputs" type="text" data-help="Your full name"></p>
+    <p>Age: <input class="inputs" type="text" data-help="Your age in years"></p>
+    <p id="help"></p>
+
+    <script>
+        let help = document.querySelector("#help");
+        let fields = document.querySelectorAll(".inputs");
+        for (let field of Array.from(fields)) {
+            field.addEventListener("focus", event => {
+                let text = event.target.getAttribute("data-help");
+                help.textContent = text + `: ${event.target.value}`;
+                console.log('?!', text)
+            });
+            field.addEventListener("blur", event => {
+                help.textContent = "";
+            });
+        }
+    </script>
+
+    <!-- When a page finishes loading, the "load" event fires on the window and the document body objects -->
+
+    <!-- Sometimes you need to cancel a function you have scheduled. This is done by storing the value returned by setTimeout and calling clearTimeout on it -->
+    <script>
+        let bombTimer = setTimeout(() => {
+            console.log("BOOM!");
+        }, 500);
+
+        if (Math.random() < 0.5) { // 50% chance
+            console.log("Defused.");
+            clearTimeout(bombTimer);
+        }
+    </script>
+    <!-- A similar set of functions, setInterval and clearInterval, are used to set timers that should repeat every X milliseconds -->
+    <script>
+        let ticks = 0;
+        let clock = setInterval(() => {
+            console.log("tick", ticks++);
+            if (ticks == 10) {
+                clearInterval(clock);
+                console.log("stop.");
+            }
+        }, 200);
+    </script>
+
+    <!-- Some types of events have the potential to fire rapidly, many times in a row (the "mousemove" and "scroll" events, for example) -->
+    <!-- If you do need to do something nontrivial in such a handler, you can use setTimeout to make sure you are not doing it too often. This is usually called debouncing the event -->
+    <!-- In this first example, we want to react when the user has typed something, but we don’t want to do it immediately for every input event. When they are typing quickly, we just want to wait until a pause occurs -->
+    <!-- Instead of immediately performing an action in the event handler, we set a timeout. We also clear the previous timeout (if any) so that when events occur close together (closer than our timeout delay), the timeout from the previous event will be canceled -->
+    <textarea>Type something here...</textarea>
+    <script>
+        let textarea = document.querySelector("textarea");
+        let timeout;
+        textarea.addEventListener("input", () => {
+            clearTimeout(timeout);
+            timeout = setTimeout(() => console.log("Typed!"), 500);
+        });
+    </script>
+    <!-- if we want to space responses so that they’re separated by at least a certain length of time but want to fire them during a series of events, not just afterward -->
+    <!-- For example, we might want to respond to "mousemove" events by showing the current coordinates of the mouse but only every 250 milliseconds -->
+    <script>
+        let scheduled = null;
+        window.addEventListener("mousemove", event => {
+            if (!scheduled) {
+                setTimeout(() => {
+                    let divEl = document.createElement('div');
+                    // divEl.textContent = `Mouse at ${scheduled.pageX}, ${scheduled.pageY}`;
+                    // document.body.textContent =
+                    //     `Mouse at ${scheduled.pageX}, ${scheduled.pageY}`;
+                    document.body.append(divEl)
+                    scheduled = null;
+                }, 250);
+            }
+            scheduled = event;
+        });
+    </script>
+
+    <!-- events exercises -->
+    <!-- When you press the up arrow, it should inflate (grow) 10 percent, and when you press the down arrow, it should deflate (shrink) 10 percent -->
+    <!-- if you blow up the balloon past a certain size, it explodes. In this case, exploding means that it is replaced with an 💥 emoji, and the event handler is removed (so that you can’t inflate or deflate the explosion) -->
+    <p id="ballon">🎈</p>
+
+    <script>
+        let ballon = document.getElementById('ballon')
+        let currentFontSize = 20;
+        window.addEventListener('keydown', (event) => {
+            console.log(currentFontSize)
+            if (event.key == 'ArrowUp') {
+                ballon.style.fontSize = currentFontSize + 10 + 'px';
+                currentFontSize = currentFontSize + 10
+                // ballon.style.fontSize = Math.floor(((currentFontSize + 10) / 100) * 100)
+                // fontSize = Math.floor(((currentFontSize + 10) / 100) * 100)
+            } else if (event.key == 'ArrowDown') {
+                ballon.style.fontSize = Math.floor(((currentFontSize - 10) / 100) * 100) + 'px'
+                currentFontSize = Math.floor(((currentFontSize - 10) / 100) * 100)
+            }
+
+            if (currentFontSize == 110) {
+                ballon.textContent = '💥'
+            } else if (currentFontSize < 110) {
+                ballon.textContent = '🎈'
+            }
+        })
+    </script>
+
+    <!-- Mouse trail -->
+    <style>
+        .trail {
+            /* className for the trail elements */
+            position: absolute;
+            height: 6px;
+            width: 6px;
+            border-radius: 3px;
+            background: teal;
+            pointer-events: none;
+        }
+
+        body {
+            height: 300px;
+        }
+    </style>
+
+    <script>
+        window.addEventListener('mousemove', (event) => {
+            let dotEl = document.createElement('div');
+            dotEl.classList.add('trail')
+            // dotEl.style.left = event.clientX + 'px'
+            // dotEl.style.top = event.clientY + 'px'
+            dotEl.style.left = event.pageX + 'px'
+            dotEl.style.top = event.pageY + 'px'
+            document.body.append(dotEl)
+            // console.log(event.clientX, event.clientY)
+
+            let allDots = document.querySelectorAll('.trail')
+            setTimeout(() => {
+                allDots.forEach((node, idx) => idx > 10 && document.body.removeChild(node))
+                // allDots.forEach((node, idx) => idx > 10 && allDots.removeChild(node))
+            }, 200)
+            // if (allDots.length > 10) {
+            //     setTimeout(() => {
+            //         allDots.forEach((node, idx) => idx > 10 && document.body.removeChild(node))
+            //         // allDots.forEach((node, idx) => idx > 10 && allDots.removeChild(node))
+            //     }, 200)
+            // }
+        })
+    </script>
+
+    <!-- Tabbed panels -->
+
+    <tab-panel>
+        <div data-tabname="one">Tab one</div>
+        <div data-tabname="two">Tab two</div>
+        <div data-tabname="three">Tab three</div>
+    </tab-panel>
+
+    <script>
+        let whichButton = 'one';
+        let handleButtonCLick = event => {
+            console.log(event.target.textContent, event)
+            whichButton = event.target.textContent.split(' ')[1]
+            let tabContents = document.querySelector('tab-panel')
+            Array.from(tabContents.children).forEach(node => node.style.display = whichButton == node.dataset.tabname ? 'block' : 'none')
+        }
+        let createButton = (btnText, idx) => {
+            let btnEl = document.createElement('button')
+            btnEl.textContent = btnText
+            btnEl.id = idx == 1 ? 'one' : idx == 2 ? 'two' : 'three'
+            btnEl.className = 'tab-btns';
+            // event listener is not working here for these!!
+            btnEl.addEventListener('click', handleButtonCLick)
+            document.body.append(btnEl)
+        }
+
+        function asTabs(node) {
+            Array.from(node.children).forEach((node, idx) => {
+                createButton(node.textContent, idx + 1);
+                // node.style.display = 'none'
+                node.style.display = whichButton == node.dataset.tabname ? 'block' : 'none';
+            })
+        }
+        asTabs(document.querySelector("tab-panel"));
+    </script>
 </body>
 
 </html>
