@@ -10,7 +10,9 @@
         type="text/css">
 </head>
 
-<body>
+<!-- inline attribure event handler pattern -->
+
+<body onclick="console.log('fire/trigger attribure event handler')">
     <!-- The insertAdjacentHTML() method which only works on Element nodes -->
     <!-- Using this method its possible to insert nodes before the beginning tag, after the beginning tag, before the end tag, and after the end tag -->
     <!-- The insertAdjacentHTML options "beforebegin" and "afterend" will only work if the node is in the DOM tree and has a parent element -->
@@ -1001,6 +1003,301 @@
         });//will log each script element in the document
     </script> -->
 
+    <!-- Dom Events -->
+    <div id="click-me">click me</div>
+    <div id="event-flow">click me to start event flow</div>
+    <div id="event-flow02">click me to start event flow without capture events flow</div>
+    <div id="mouse-over">mouse over me</div>
+    <div id="remove-event">click to say hi</div>
+    <div id="event-prop">click me event properties</div>
+    <div id="this-value">click me</div>
+    <a id="site" href="google.com">no go</a>
+    <input id="chk-box" type="checkbox" />
+    <textarea id="text-area02"></textarea>
+    <div id="stop-propagation">click me</div>
+    <div id="imdt-stop">click me</div>
+    <div id="custom-event">click me</div>
+    <div id="mimic-mouse-events">no need to click, we programatically trigger it</div>​​​​
+    <p>Click a table cell</p>
+
+    <table id="event-delegation" border="1">
+        <tbody>
+            <tr>
+                <td>row 1 column 1</td>
+                <td>row 1 column 2</td>
+            </tr>
+            <tr>
+                <td>row 2 column 1</td>
+                <td>row 2 column 2</td>
+            </tr>
+            <tr>
+                <td>row 3 column 1</td>
+                <td>row 3 column 2</td>
+            </tr>
+            <tr>
+                <td>row 4 column 1</td>
+                <td>row 4 column 2</td>
+            </tr>
+            <tr>
+                <td>row 5 column 1</td>
+                <td>row 5 column 2</td>
+            </tr>
+            <tr>
+                <td>row 6 column 1</td>
+                <td>row 6 column 2</td>
+            </tr>
+        </tbody>
+    </table>​​​​​​​​
+
+
+    <script>
+        var elementDiv = document.querySelector('#click-me');
+
+        // property event handler pattern
+        elementDiv.onclick = function () { console.log('fire/trigger property event handler') };
+
+        //addEventListener method pattern
+        elementDiv.addEventListener('click', function () { console.log('fire/trigger addEventListener') }, false);
+
+        //overrides/replaces the prior value
+        elementDiv.onclick = function () { console.log('I win') };
+
+        /*notice that I am passing the addEventListener() a boolean parameter of true so capture events fire, not just bubbling events*/
+
+        //1 capture phase
+        window.addEventListener('click', function () { console.log(1); }, true);
+
+        //2 capture phase
+        document.addEventListener('click', function () { console.log(2); }, true);
+
+        //3 capture phase
+        document.documentElement.addEventListener('click', function () { console.log(3); }, true);
+
+        //4 capture phase
+        document.body.addEventListener('click', function () { console.log(4); }, true);
+
+        //5 target phase occurs during capture phase
+        document.querySelector('#event-flow').addEventListener('click', function () { console.log(5); }, true);
+
+        //6 target phase occurs during bubbling phase
+        document.querySelector('#event-flow').addEventListener('click', function () { console.log(6); }, false);
+
+        //7 bubbling phase
+        document.body.addEventListener('click', function () { console.log(7); }, false);
+
+        //8 bubbling phase
+        document.documentElement.addEventListener('click', function () { console.log(8); }, false);
+
+        //9 bubbling phase
+        document.addEventListener('click', function () { console.log(9); }, false);
+
+        //10 bubbling phase
+        window.addEventListener('click', function () { console.log(10) }, false);
+
+        // without capturing phase enabled
+
+        //1 target phase occurs during bubbling phase
+        document.querySelector('#event-flow02').addEventListener('click', function () { console.log(11); }, false);
+
+        //2 bubbling phase
+        document.body.addEventListener('click', function () { console.log(22); }, false);
+
+        //3 bubbling phase
+        document.documentElement.addEventListener('click', function () { console.log(33); }, false);
+
+        //4 bubbling phase
+        document.addEventListener('click', function () { console.log(44); }, false);
+
+        //5 bubbling phase
+        window.addEventListener('click', function () { console.log(55) }, false);
+
+        //add a mousemove event to the window object, invoking the event during the bubbling phase
+        window.addEventListener('mousemove', function () { console.log('moving over window'); }, false);
+
+        //add a mousemove event to the document object, invoking the event during the bubbling phase
+        document.addEventListener('mousemove', function () { console.log('moving over document'); }, false);
+
+        //add a mousemove event to a <div> element object, invoking the event during the bubbling phase
+        document.querySelector('#mouse-over').addEventListener('mousemove', function () { console.log('moving over div'); }, false);
+
+        // The removeEventListener() method can be used to remove events listeners, if the orginal listener was not added using an anonymous function
+        // Anonymous functions added using addEventListener() method simply cannot be removed.
+
+        var sayHi = function () { console.log('hi') };
+
+        //adding event listener using anonymous function
+        document.body.addEventListener('click', function () { console.log('dude'); }, false);
+
+        //adding event listener using function reference
+        document.querySelector('#remove-event').addEventListener('click', sayHi, false);
+
+        //attempt to remove both event listeners, but only the listener added with a funtions reference is removed
+        document.querySelector('#remove-event').removeEventListener('click', sayHi, false);
+
+        //this of course does not work as the function passed to removeEventListener is a new and different function
+        document.body.removeEventListener('click', function () { console.log('dude'); }, false);
+
+        //clicking the div will still invoke the click event attached to the body element, this event was not removed
+
+        // event properties
+        document.querySelector('#event-prop').addEventListener('click', function (event) {
+            Object.keys(event).sort().forEach(function (item) {
+                console.log(item + ' = ' + event[item]); //logs event propeties and values
+            });
+        }, false);
+
+        //assumes 'this' is window
+        this.addEventListener('load', function (event) {
+            Object.keys(event).sort().forEach(function (item) {
+                console.log(item + ' = ' + event[item]); //logs event propeties and values
+            });
+        }, false);
+
+        // value of 'this' inside of the event listener function passed to the addEventListener() method will be a reference to the node or object the event is attached to
+        document.querySelector('#this-value').addEventListener('click', function () {
+            // 'this' will be the element or node the event listener is attached too
+            console.log(this); //logs '<div>' 
+        }, false);
+
+        // Additionally its possible using the event.currentTarget property to get the same reference, to the node or object invoking the event listener, that the this property provides
+        document.addEventListener('click', function (event) {
+            console.log(event.currentTarget);  //logs '#document'
+            //same as...
+            console.log(this);
+        }, false);
+
+        document.body.addEventListener('click', function (event) {
+            console.log(event.currentTarget); //logs '<body>'
+            //same as...
+            console.log(this);
+        }, false);
+
+        document.querySelector('#this-value').addEventListener('click', function (event) {
+            console.log(event.currentTarget); //logs '<div>'
+            //same as...
+            console.log(this);
+        }, false);
+
+        // browser events can be prevented by calling the preventDefault() method inside of the event handler function associated with a node or object that invokes a browser default event
+        // The preventDefault() methods does not stop events from propagating (i.e. bubbling or capture phases)
+        // Providing a return false at the end of the body of the event listener has the same result as call the preventDefault() method
+        // The event object passed to event listener functions contains a boolean cancelable property which indicates if the event will respond to preveentDefault() method and canceling default behavior
+
+
+        document.querySelector('#site').addEventListener('click', function (event) {
+            event.preventDefault(); //stop the default event for <a> which would be to load a url
+        }, false);
+
+        document.querySelector('#chk-box').addEventListener('click', function (event) {
+            event.preventDefault(); //stop default event for checkbox, which would be to toggle checkbox state
+        }, false);
+
+        document.querySelector('#text-area02').addEventListener('keypress', function (event) {
+            event.preventDefault(); //stop default event for textarea, which would be to add characters typed
+            // return false
+        }, false);
+
+        /*keep in mind that events still propagate, clicking the link in this html document will stop the default event but not event bubbling*/
+        document.body.addEventListener('click', function () {
+            console.log('the event flow still flows!');
+        }, false);
+
+        // Calling stopProgagation() from within an event handler/listener will stop the capture and bubble event flow phases, but any events directly attached to the node or object will still be invoked
+        document.querySelector('#stop-propagation').addEventListener('click', function () {
+            console.log('me too, but nothing from the event flow!');
+        }, false);
+
+        document.querySelector('#stop-propagation').addEventListener('click', function (event) {
+            console.log('invoked all click events attached, but cancel capture and bubble event phases');
+            event.stopPropagation();
+        }, false);
+
+        document.querySelector('#stop-propagation').addEventListener('click', function () {
+            console.log('me too, but nothing from the event flow!');
+        }, false);
+
+        /*when the <div> is clicked this event is not invoked because one of the events attached to the <div> stops the capture and bubble flow.*/
+        document.body.addEventListener('click', function () {
+            console.log('What, denied from being invoked!');
+        }, false);
+
+        // Calling the stopImmediatePropagation() from within an event handler/listener will stop the event flow phases (i.e. stopPropagation()), as well as any other like events attached to the event target that are attached after the event listener that invokes the stopImmediatePropagation() method
+        // Using the stopImmediatePropagation() does not prevent default events
+        // Browser default events still get invoked and only calling preventDefault() will stop these events
+
+        //first event attached
+        document.querySelector('#imdt-stop').addEventListener('click', function () {
+            console.log('I get invoked because I was attached first');
+        }, false);
+
+        //seond event attached
+        document.querySelector('#imdt-stop').addEventListener('click', function (event) {
+            console.log('I get invoked, but stop any other click events on this target');
+            event.stopImmediatePropagation();
+        }, false);
+
+        //third event attached, but because stopImmediatePropagation() was called above this event does not get invoked
+        document.querySelector('#imdt-stop').addEventListener('click', function () {
+            console.log('I get stopped from the previous click event listener');
+        }, false);
+
+        //notice that the event flow is also cancelled as if stopPropagation was called too
+        document.body.addEventListener('click', function () {
+            console.log('What, denied from being invoked!');
+        }, false);
+
+        //  Its possible to attach and invoke a custom event, using the addEventListener() method like normal in combiniation with document.createEvent(), initCustomEvent(), and dispatchEvent()
+        var divElement = document.querySelector('#custom-event');
+
+        //create the custom event
+        var cheer = document.createEvent('CustomEvent'); //the 'CustomEvent' parameter is required
+
+        //create an event listener for the custom event
+        divElement.addEventListener('goBigBlue', function (event) {
+            console.log(event.detail.goBigBlueIs)
+        }, false);
+
+        /*Use the initCustomEvent method to setup the details of the custom event.
+        Parameters for initCustomEvent are: (event, bubble?, cancelable?, pass values to event.detail)*/
+        cheer.initCustomEvent('goBigBlue', true, false, { goBigBlueIs: 'its gone!' });
+
+        //invoke the custom event using dispatchEvent
+        divElement.dispatchEvent(cheer);
+
+        // In the case of simulating a mouse event we create a 'MouseEvent' using document.createEvent()
+        // Then, using initMouseEvent() we setup the mouse event that is going to occur
+        // Next the mouse event is dispatched on the element that we'd like to simulate an event on
+        var divElement = document.querySelector('#mimic-mouse-events');
+
+        //setup click event that will be simulated
+        divElement.addEventListener('click', function (event) {
+            console.log(Object.keys(event));
+        }, false);
+
+        //create simulated mouse event 'click'
+        var simulateDivClick = document.createEvent('MouseEvents');
+
+        /*setup simulated mouse 'click'
+        initMouseEvent(type,bubbles,cancelable,view,detail,screenx,screeny,clientx,clienty,ctrlKey,altKey,shiftKey,metaKey,button,relatedTarget)*/
+        simulateDivClick.initMouseEvent('click', true, true, document.defaultView, 0, 0, 0, 0, 0, false, false, false, 0, null, null);
+
+        //invoke simulated clicked event
+        divElement.dispatchEvent(simulateDivClick);
+
+
+        // Event delegations
+        // Event delegation, stated simply, is the programmatic act of leveraging the event flow and a single event listener to deal with multiple event targets
+        // A side effect of event delegation is that the event targets don't have to be in the DOM when the event is created in order for the targets to respond to the event
+        // This is of course rather handy when dealing with XHR responses that update the DOM
+        // Event delegation is ideally leverage when you are dealing with a click, mousedown, mouseup, keydown, keyup, and keypress event type
+        
+        document.querySelector('#event-delegation').addEventListener('click', function (event) {
+            if (event.target.tagName.toLowerCase() === 'td') { //make sure we only run code if a td is the target
+                console.log(event.target.textContent); //use event.target to gain access to target of the event which is the td 
+            }
+        }, false);
+
+    </script>
 </body>
 
 </html>
