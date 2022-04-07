@@ -8,7 +8,7 @@
     <title>JS - HTML DOM</title>
 </head>
 
-<body>
+<body onload="checkCookies()">
     <!-- 
         The DOM Programming Interface: 
          > In the DOM, all HTML elements are defined as objects
@@ -21,6 +21,743 @@
     <script>
         document.getElementById("demo").innerHTML = "Hello World!";
     </script>
-</body>
+
+    <!-- The HTML DOM document object is the owner of all other objects in your web page -->
+    <!-- The document object represents your web page. -->
+    <!-- If you want to access any element in an HTML page, you always start with accessing the document object. -->
+    <!-- 
+        Below are some examples of how you can use the document object to access and manipulate HTML. 
+        Finding elements:
+        document.getElementById(id)	Find an element by element id
+        document.getElementsByTagName(name)	Find elements by tag name
+        document.getElementsByClassName(name)	Find elements by class name
+
+        Changing elements:
+        element.innerHTML =  new html content	Change the inner HTML of an element
+        element.attribute = new value	Change the attribute value of an HTML element
+        element.style.property = new style	Change the style of an HTML element
+        element.setAttribute(attribute, value)	Change the attribute value of an HTML element
+
+        Adding and Deleting Elements:
+        document.createElement(element)	Create an HTML element
+        document.removeChild(element)	Remove an HTML element
+        document.appendChild(element)	Add an HTML element
+        document.replaceChild(new, old)	Replace an HTML element
+        document.write(text)	Write into the HTML output stream
+
+        Adding Events Handlers:
+        document.getElementById(id).onclick = function(){code}	Adding event handler code to an onclick event
+
+        Finding HTML Objects:
+        document.anchors	Returns all <a> elements that have a name attribute	1
+        document.baseURI	Returns the absolute base URI of the document	3
+        document.body	Returns the <body> element	1
+        document.cookie	Returns the document's cookie	1
+        document.doctype	Returns the document's doctype	3
+        document.documentElement	Returns the <html> element	3
+        document.documentMode	Returns the mode used by the browser	3
+        document.documentURI	Returns the URI of the document	3
+        document.domain	Returns the domain name of the document server	1
+        document.embeds	Returns all <embed> elements	3
+        document.forms	Returns all <form> elements	1
+        document.head	Returns the <head> element	3
+        document.images	Returns all <img> elements	1
+        document.implementation	Returns the DOM implementation	3
+        document.inputEncoding	Returns the document's encoding (character set)	3
+        document.lastModified	Returns the date and time the document was updated	3
+        document.links	Returns all <area> and <a> elements that have a href attribute	1
+        document.readyState	Returns the (loading) status of the document	3
+        document.referrer	Returns the URI of the referrer (the linking document)	1
+        document.scripts	Returns all <script> elements	3
+        document.strictErrorChecking	Returns if error checking is enforced	3
+        document.title	Returns the <title> element	1
+        document.URL	Returns the complete URL of the document	1
+     -->
+    <p class="intro"></p>
+    <script>
+        const element = document.getElementsByTagName("p");
+        const x = document.getElementsByClassName("intro");
+        const xx = document.querySelectorAll("p.intro");
+        const xxx = document.forms["frm1"]; // finds the form element with id="frm1"
+        document.getElementById("myImage").src = "landscape.jpg"; // Changing the Value of an Attribute
+        document.getElementById("demo").innerHTML = "Date : " + Date(); // Dynamic HTML content
+    </script>
+    <!-- // document.write() can be used to write directly to the HTML output stream -->
+    <!-- Never use document.write() after the document is loaded. It will overwrite the document -->
+    <p>Bla bla bla</p>
+    <script>
+        document.write(Date());
+    </script>
+    <p>Bla bla bla</p>
+
+    <!-- Form Validation -->
+    <form name="myForm" onsubmit="return validateForm()">
+        Name: <input type="text" name="fname" required>
+        <input type="submit" value="Submit">
+    </form>
+    <script>
+        function validateForm() {
+            // event.preventDefault()
+            let x = document.forms["myForm"]["fname"].value;
+            if (x == "") {
+                alert("Name must be filled out");
+                return false;
+            }
+        }
+    </script>
+    <!-- JavaScript is often used to validate numeric input -->
+    <form id="valid-num">
+        <input type="number" name="numbers" min="1" max="10" value="1">
+        <input type="submit" value="Submit">
+    </form>
+
+    <!-- 
+        HTML Constraint Validation: 
+            > Constraint validation HTML Input Attributes
+            > Constraint validation CSS Pseudo Selectors
+            > Constraint validation DOM Properties and Methods
+
+        Constraint Validation HTML Input Attributes:
+        disabled => Specifies that the input element should be disabled
+        max	=> Specifies the maximum value of an input element
+        min => Specifies the minimum value of an input element
+        pattern => Specifies the value pattern of an input element
+        required => Specifies that the input field requires an element
+        type =>	Specifies the type of an input element
+
+        Constraint Validation CSS Pseudo Selectors:
+        :disabled	Selects input elements with the "disabled" attribute specified
+        :invalid	Selects input elements with invalid values
+        :optional	Selects input elements with no "required" attribute specified
+        :required	Selects input elements with the "required" attribute specified
+        :valid	Selects input elements with valid values
+    -->
+    <form>
+        <input list="browsers">
+        <datalist id="browsers">
+            <option value="Internet Explorer">
+            <option value="Firefox">
+            <option value="Chrome">
+            <option value="Opera">
+            <option value="Safari">
+        </datalist>
+    </form>
+
+    <style>
+        #container {
+            width: 400px;
+            height: 400px;
+            position: relative;
+            background: yellow;
+        }
+
+        #animate {
+            width: 50px;
+            height: 50px;
+            position: absolute;
+            background: red;
+        }
+    </style>
+    <p><button onclick="myMove()">Click Me</button></p>
+    <div id="container">
+        <div id="animate">My animation will go here</div>
+    </div>
+    <!-- changes are called by a timer. When the timer interval is small, the animation looks continuous. -->
+    <script>
+        function myMove() {
+            let id = null;
+            const elem = document.getElementById("animate");
+            let pos = 0;
+            clearInterval(id);
+            id = setInterval(frame, 5);
+            function frame() {
+                if (pos == 350) {
+                    // clearInterval(id);
+                    elem.style.top = 0 + 'px';
+                    elem.style.left = 0 + 'px';
+                    pos = 0
+                } else {
+                    pos++;
+                    elem.style.top = pos + 'px';
+                    elem.style.left = pos + 'px';
+                }
+            }
+        }
+    </script>
+    <!-- The onload and onunload events are triggered when the user enters or leaves the page -->
+    <!-- The onload and onunload events can be used to deal with cookies. -->
+    <!-- The onload event can be used to check the visitor's browser type and browser version, and load the proper version of the web page based on the information. -->
+    <script>
+        function checkCookies() {
+            var text = "";
+            if (navigator.cookieEnabled == true) {
+                text = "Cookies are enabled.";
+            } else {
+                text = "Cookies are not enabled.";
+            }
+            document.getElementById("demo").innerHTML = text;
+        }
+    </script>
+    <!-- The onchange event is often used in combination with validation of input fields -->
+    <h2>JavaScript HTML Events</h2>
+    Enter your name: <input type="text" id="fname1" onchange="upperCase()">
+    <p>When you leave the input field, a function is triggered which transforms the input text to upper case.</p>
+
+    <script>
+        function upperCase() {
+            const x = document.getElementById("fname1");
+            x.value = x.value.toUpperCase();
+            console.log(typeof x.value == 'number', typeof x.value)
+            // typeof x.value == 'number' ? alert('enter text') : null
+            '1234567890'.includes(x.value) ? alert('enter text') : null
+        }
+    </script>
+
+    <!--  addEventListener() method attaches an event handler to the specified element. -->
+    <!-- addEventListener() method attaches an event handler to an element without overwriting existing event handlers -->
+    <!-- You can add many event handlers to one element -->
+    <!-- You can easily remove an event listener by using the removeEventListener() method -->
+    <!-- 
+        syntax:
+        element.addEventListener(event, function, useCapture);
+        
+        The first parameter is the type of the event (like "click" or "mousedown" or any other HTML DOM Event.)
+        The second parameter is the function we want to call when the event occurs.
+        The third parameter is a boolean value specifying whether to use event bubbling or event capturing. This parameter is optional.
+     -->
+    <button id="myBtn">Try it</button>
+
+    <p id="demo1"></p>
+
+    <script>
+        var x1 = document.getElementById("myBtn");
+        x1.addEventListener("mouseover", myFunction);
+        x1.addEventListener("click", mySecondFunction);
+        x1.addEventListener("mouseout", myThirdFunction);
+
+        function myFunction() {
+            document.getElementById("demo1").innerHTML += "Moused over!<br>";
+        }
+
+        function mySecondFunction() {
+            document.getElementById("demo1").innerHTML += "Clicked!<br>";
+        }
+
+        function myThirdFunction() {
+            document.getElementById("demo1").innerHTML += "Moused out!<br>";
+        }
+    </script>
+
+    <!-- When passing parameter values, use an "anonymous function" that calls the specified function with the parameters: -->
+    <button id="myBtn2">Try it</button>
+
+    <p id="demo2"></p>
+
+    <script>
+        let p1 = 5;
+        let p2 = 7;
+        document.getElementById("myBtn2").addEventListener("click", function () {
+            myFunction(p1, p2);
+        });
+
+        function myFunction(a, b) {
+            document.getElementById("demo2").innerHTML = a * b;
+        }
+    </script>
+
+    <!-- 
+        Event Bubbling or Event Capturing? 
+        > There are two ways of event propagation in the HTML DOM, bubbling and capturing.
+
+        > Event propagation is a way of defining the element order when an event occurs. If you have a <p> element inside a <div> element, and the user clicks on the <p> element, which element's "click" event should be handled first?
+            > In bubbling the inner most element's event is handled first and then the outer: the <p> element's click event is handled first, then the <div> element's click event.
+            > In capturing the outer most element's event is handled first and then the inner: the <div> element's click event will be handled first, then the <p> element's click event
+        
+        > With the addEventListener() method you can specify the propagation type by using the "useCapture" parameter:
+            > addEventListener(event, function, useCapture);
+        
+        > The default value is false, which will use the bubbling propagation, when the value is set to true, the event uses the capturing propagation
+    -->
+    <style>
+        #myDiv1,
+        #myDiv2 {
+            background-color: coral;
+            padding: 50px;
+        }
+
+        #myP1,
+        #myP2 {
+            background-color: white;
+            font-size: 20px;
+            border: 1px solid;
+            padding: 20px;
+        }
+    </style>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    </head>
+
+    <body>
+
+        <h2>JavaScript addEventListener()</h2>
+
+        <div id="myDiv1">
+            <h2>Bubbling:</h2>
+            <p id="myP1">Click me!</p>
+        </div><br>
+
+        <div id="myDiv2">
+            <h2>Capturing:</h2>
+            <p id="myP2">Click me!</p>
+        </div>
+
+        <script>
+            document.getElementById("myP1").addEventListener("click", function () {
+                alert("You clicked the white element!");
+            }, false);
+
+            document.getElementById("myDiv1").addEventListener("click", function () {
+                alert("You clicked the orange element!");
+            }, false);
+
+            document.getElementById("myP2").addEventListener("click", function () {
+                alert("You clicked the white element!");
+            }, true);
+
+            document.getElementById("myDiv2").addEventListener("click", function () {
+                alert("You clicked the orange element!");
+            }, true);
+        </script>
+
+        <!-- 
+            Node Relationships
+            > The nodes in the node tree have a hierarchical relationship to each other.
+
+            > The terms parent, child, and sibling are used to describe the relationships.
+                > In a node tree, the top node is called the root (or root node)
+                > Every node has exactly one parent, except the root (which has no parent)
+                > A node can have a number of children
+                > Siblings (brothers or sisters) are nodes with the same parent
+            
+            > DOM Root Nodes
+            There are two special properties that allow access to the full document:
+                > document.body - The body of the document
+                > document.documentElement - The full document
+            
+            > The nodeName Property
+            The nodeName property specifies the name of a node.
+                > nodeName is read-only
+                > nodeName of an element node is the same as the tag name
+                > nodeName of an attribute node is the attribute name
+                > nodeName of a text node is always #text
+                > nodeName of the document node is always #document
+
+            > The nodeValue Property
+            The nodeValue property specifies the value of a node.
+                > nodeValue for element nodes is null
+                > nodeValue for text nodes is the text itself
+                > nodeValue for attribute nodes is the attribute value
+
+            > The nodeType Property
+            The nodeType property is read only. It returns the type of a node.
+         -->
+        <div id="div1">
+            <p id="p1">This is a paragraph.</p>
+            <p id="p2">This is another paragraph.</p>
+            <p id="p3">Here is another paragraph</p>
+        </div>
+
+        <script>
+            const para = document.createElement("p");
+            const node = document.createTextNode("This is new.");
+            para.appendChild(node);
+
+            const elem = document.getElementById("div1");
+            const child = document.getElementById("p1");
+            elem.insertBefore(para, child);
+
+            const para2 = document.createElement("p");
+            const node2 = document.createTextNode("This is new.");
+            para2.appendChild(node2);
+
+            const parent = document.getElementById("div1");
+            const child2 = document.getElementById("p3");
+            parent.replaceChild(para2, child2);
+        </script>
+        <!-- 
+            The HTML DOM NodeList Object
+            > A NodeList object is a list (collection) of nodes extracted from a document.
+            > A NodeList object is almost the same as an HTMLCollection object.
+            > Some (older) browsers return a NodeList object instead of an HTMLCollection for methods like getElementsByClassName().
+            > All browsers return a NodeList object for the property childNodes. 
+            > Most browsers return a NodeList object for the method querySelectorAll().
+
+            The Difference Between an HTMLCollection and a NodeList
+            > A NodeList and an HTMLcollection is very much the same thing.
+            > Both are array-like collections (lists) of nodes (elements) extracted from a document. The nodes can be accessed by index numbers. The index starts at 0.=
+            > Both have a length property that returns the number of elements in the list (collection).
+            > An HTMLCollection is a collection of document elements.
+            > A NodeList is a collection of document nodes (element nodes, attribute nodes, and text nodes).
+            > HTMLCollection items can be accessed by their name, id, or index number.
+            > NodeList items can only be accessed by their index number.
+            > An HTMLCollection is always a live collection. Example: If you add a <li> element to a list in the DOM, the list in the HTMLCollection will also change.
+            > A NodeList is most often a static collection. Example: If you add a <li> element to a list in the DOM, the list in NodeList will not change.
+            > The getElementsByClassName() and getElementsByTagName() methods return a live HTMLCollection.
+            > The querySelectorAll() method returns a static NodeList.
+            > The childNodes property returns a live NodeList.
+         -->
+        <style>
+            html {
+                font-family: sans-serif;
+                color: #333;
+            }
+
+            body {
+                max-width: 500px;
+                margin: 0 auto;
+                padding: 0 15px;
+            }
+
+            div,
+            article {
+                padding: 10px;
+                margin: 5px;
+                border: 1px solid #dedede;
+            }
+        </style>
+        <h1>Accessing Elements in the DOM</h1>
+
+        <h2>ID (#demo)</h2>
+        <div id="demo4">Access me by ID</div>
+
+        <h2>Class (.demo)</h2>
+        <div class="demo">Access me by class (1)</div>
+        <div class="demo">Access me by class (2)</div>
+
+        <h2>Tag (article)</h2>
+        <article>Access me by tag (1)</article>
+        <article>Access me by tag (2)</article>
+
+        <h2>Query Selector</h2>
+        <div id="demo-query">Access me by query</div>
+
+        <h2>Query Selector All</h2>
+        <div class="demo-query-all">Access me by query all (1)</div>
+        <div class="demo-query-all">Access me by query all (2)</div>
+        <script>
+            const demoId = document.getElementById('demo4');
+            demoId.style.border = '1px solid purple';
+
+            const demoClass = document.getElementsByClassName('demo');
+            for (i = 0; i < demoClass.length; i++) {
+                demoClass[i].style.border = '1px solid orange';
+            }
+
+            const demoTag = document.getElementsByTagName('article');
+
+            for (i = 0; i < demoTag.length; i++) {
+                demoTag[i].style.border = '1px solid blue';
+            }
+
+            const demoQueryAll = document.querySelectorAll('.demo-query-all');
+            demoQueryAll.forEach(query => {
+                query.style.border = '1px solid green';
+            });
+
+            // With querySelector(), comma-separated values function as an OR operator. For example, querySelector('div, article') will match div or article, whichever appears first in the document
+            const demoQuery = document.querySelector('#demo-query');
+            demoQuery.style.border = '1px solid red';
+        </script>
+
+        <style>
+            * {
+                border: 2px solid #dedede;
+                padding: 15px;
+                margin: 15px;
+            }
+
+            html {
+                margin: 0;
+                padding: 0;
+            }
+
+            body {
+                max-width: 600px;
+                font-family: sans-serif;
+                color: #333;
+            }
+        </style>
+        <h1>Shark World</h1>
+        <p id="here">The world's leading source on <strong>shark</strong> related information.</p>
+        <h2>Types of Sharks</h2>
+        <ul>
+            <li>Hammerhead</li>
+            <li>Tiger</li>
+            <li>Great White</li>
+        </ul>
+        <script>
+            const h1 = document.getElementsByTagName('h1')[0];
+            const p = document.getElementsByTagName('p')[0];
+            const ul = document.getElementsByTagName('ul')[0];
+            // ul.firstElementChild.style.background = 'yellow';
+            for (let element of ul.children) {
+                element.style.background = 'yellow';
+            }
+            for (let element of p.childNodes) {
+                console.log(element);
+            }
+            // Using parent and child properties, you can retrieve any node in the DOM.
+            document.body.children[55].lastElementChild.style.background = 'fuchsia';
+
+            // Sibling properties can be chained together, just like parent and node properties.
+            const tiger = ul.children[1];
+            tiger.nextElementSibling.style.background = 'coral';
+            tiger.previousElementSibling.style.background = 'aquamarine';
+        </script>
+
+        <!-- making changes to dom -->
+        <ul id="ul">
+            <li>Buy groceries</li>
+            <li>Feed the cat</li>
+            <li>Do laundry</li>
+        </ul>
+        <script>
+            const paragraph = document.createElement('p');
+            paragraph.textContent = "I'm a brand new paragraph.";
+            paragraph.innerHTML = "I'm a paragraph with <strong>bold</strong> text.";
+            const text = document.createTextNode("I'm a new text node.");
+            // With these methods, we’ve created new elements and text nodes, but they are not visible on the front end of a website until they’ve been inserted into the document.
+            // methods appendChild() and insertBefore() are used to add items to the beginning, middle, or end of a parent element, and replaceChild() is used to replace an old node with a new node
+
+            // To-do list ul element
+            const todoList = document.querySelector('#ul');
+            // Create new to-do
+            const newTodo = document.createElement('li');
+            newTodo.textContent = 'Do homework';
+            // Add new todo to the end of the list
+            todoList.appendChild(newTodo);
+            // Create new to-do
+            const anotherTodo = document.createElement('li');
+            anotherTodo.textContent = 'Pay bills';
+            // Add new to-do to the beginning of the list
+            todoList.insertBefore(anotherTodo, todoList.firstElementChild);
+            const modifiedTodo = document.createElement('li');
+            modifiedTodo.textContent = 'Feed the dog';
+            // Like insertBefore(), replaceChild() takes two arguments — the new node, and the node to be replaced
+            // Replace existing to-do with modified to-do
+            todoList.replaceChild(modifiedTodo, todoList.children[2]);
+            // Child nodes can be removed from a parent with removeChild(), and a node itself can be removed with remove()
+            todoList.removeChild(todoList.lastElementChild);
+            // Remove second element child from todoList
+            todoList.children[1].remove();
+        </script>
+        <!-- 
+            Modifying Attributes
+            > Attributes are values that contain additional information about HTML elements. They usually come in name/value pairs, and may be essential depending on the element.
+            > Custom elements that are not part of the HTML standard will be prepended with data-.
+
+            > In JavaScript, we have four methods for modifying element attributes:
+                > hasAttribute()	Returns a true or false boolean	   element.hasAttribute('href');
+                > getAttribute()	Returns the value of a specified attribute or null	  element.getAttribute('href');
+                > setAttribute()	Adds or updates value of a specified attribute	  element.setAttribute('href',
+                > removeAttribute()	Removes an attribute from an element	element.removeAttribute('href');
+         -->
+        <img src="https://js-tutorials.nyc3.digitaloceanspaces.com/shark.png">
+        <script>
+            // Assign image element
+            const img = document.querySelector('img');
+
+            img.hasAttribute('src');                // returns true
+            img.getAttribute('src');                // returns "...shark.png"
+            img.removeAttribute('src');             // remove the src attribute and value
+
+            img.setAttribute('src', 'https://js-tutorials.nyc3.digitaloceanspaces.com/octopus.png');
+
+            img.src = 'https://js-tutorials.nyc3.digitaloceanspaces.com/shark.png';
+        </script>
+        <style>
+            body {
+                max-width: 600px;
+                margin: 0 auto;
+                font-family: sans-serif;
+            }
+
+            .active {
+                border: 2px solid blue;
+            }
+
+            .warning {
+                border: 2px solid red;
+            }
+
+            .hidden {
+                display: none;
+            }
+
+            div {
+                border: 2px dashed lightgray;
+                padding: 15px;
+                margin: 5px;
+            }
+        </style>
+        <div id="this-div">Div 1</div>
+        <div class="active">Div 2</div>
+        <div id="inline-css" style="height: 100px; width: 100px; border: 2px solid black;">Div</div>
+        <script>
+            // Select the first div
+            const div = document.querySelector('#this-div');
+
+            // Assign the warning class to the first div
+            div.className = 'warning'
+
+            // Select the second div by class name
+            const activeDiv = document.querySelector('.active');
+
+            // Unlike in the className example, using classList.add() will add a new class to the list of existing classes
+            // you can also add multiple classes as comma-separated strings
+            // It is also possible to use setAttribute to modify the class of an element
+            activeDiv.classList.add('hidden');                // Add the hidden class
+            activeDiv.classList.remove('hidden');             // Remove the hidden class
+            activeDiv.classList.toggle('hidden');             // Switch between hidden true and false
+            activeDiv.classList.replace('active', 'warning'); // Replace active class with warning class
+
+            // with setAttribute
+            // Select div
+            const div2 = document.querySelector('#inline-css');
+
+            // Apply style to div
+            div2.setAttribute('style', 'text-align: center');
+            // However, this will remove all existing inline styles from the element. Since this is likely not the intended effect, it is better to use the style attribute directly
+            div2.style.height = '100px';
+            div2.style.width = '100px';
+            div2.style.border = '2px solid black';
+
+            // Make div into a circle and vertically center the text
+            div2.style.borderRadius = '50%';
+            div2.style.display = 'flex';
+            div2.style.justifyContent = 'center';
+            div2.style.alignItems = 'center';
+        </script>
+
+        <!-- event handlers -->
+        <button onclick="changeText()">Click me</button>
+
+        <p id="change-me">Try to change me.</p>
+
+        <button id="click-me">Click me</button>
+
+        <p id="change-me2">I will change.</p>
+
+        <button id="click-me2">Click me</button>
+
+        <p id="change-me3">I will change.</p>
+
+        <p id="event-objects"></p>
+
+        <section>
+            <div id="one">One</div>
+            <div id="two">Two</div>
+            <div id="three">Three</div>
+        </section>
+
+        <script>
+            const changeText = () => {
+                const p = document.querySelector('#change-me');
+
+                p.textContent = "I changed because of an inline event handler.";
+            }
+
+            // Function to modify the text content of the paragraph
+            const changeText1 = () => {
+                const p = document.querySelector('#change-me2');
+
+                p.textContent = "I changed because of an event handler property.";
+            }
+
+            // Add event handler as a property of the button element
+            const button = document.querySelector('#click-me');
+            button.onclick = changeText1;
+
+            // trying to set multiple, separate onclick properties will cause all but the last one to be overwritten
+            const alertText = () => {
+                alert('Will I alert?');
+            }
+
+            // Events can be overwritten
+            button.onclick = alertText;
+
+            // event listeners
+            // Function to modify the text content of the paragraph
+            const changeText2 = () => {
+                const p = document.querySelector('#change-me3');
+
+                p.textContent = "I changed because of an event listener.";
+            }
+
+            // Listen for click event
+            const button2 = document.querySelector('#click-me2');
+            button2.addEventListener('click', changeText2);
+
+            //  We can set multiple event listeners on the same element with event listeners and it wont overwrite previous events
+            const alertText2 = () => {
+                alert('Will I alert?');
+            }
+
+            // Multiple listeners can be added to the same event and element
+            button2.addEventListener('click', alertText2);
+
+            // Remove alert function from button element
+            button2.removeEventListener('click', alertText);
+            /*
+            Keyboard Events
+                Keyboard events are used for handling keyboard actions, such as pressing a key, lifting a key, and holding down a key.
+                    > keydown	Fires once when a key is pressed
+                    > keyup	Fires once when a key is released
+                    > keypress	Fires continuously while a key is pressed
+                > Although they look similar, keydown and keypress events do not access all the exact same keys. While keydown will acknowledge every key that is pressed, keypress will omit keys that do not produce a character, such as SHIFT, ALT, or DELETE.
+                > If a parameter, known as an event object, is passed through to the event listener, we can access more information about the action that took place. Two properties that pertain to keyboard objects include key and code
+             */
+            // Test the key and code properties
+            document.addEventListener('keydown', event => {
+                console.log('key: ' + event.key);
+                console.log('code: ' + event.code);
+            });
+
+            // Pass an event through to a listener
+            document.addEventListener('keydown', event => {
+                var element = document.querySelector('#event-objects');
+
+                // Set variables for keydown codes
+                var a = 'KeyA';
+                var s = 'KeyS';
+                var d = 'KeyD';
+                var w = 'KeyW';
+
+                // Set a direction for each code
+                switch (event.code) {
+                    case a:
+                        element.textContent = 'Left';
+                        break;
+                    case s:
+                        element.textContent = 'Down';
+                        break;
+                    case d:
+                        element.textContent = 'Right';
+                        break;
+                    case w:
+                        element.textContent = 'Up';
+                        break;
+                }
+            });
+
+            // event target
+            // Clicking on any one of those elements will return output of the relevant specific element 
+            const section = document.querySelector('section');
+
+            // Print the selected target
+            section.addEventListener('click', event => {
+                console.log(event.target);
+            });
+        </script>
+    </body>
 
 </html>
